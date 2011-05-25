@@ -30,11 +30,10 @@ public class teste {
 //		}
 		
 		
-		
-		
 		System.out.println(Arrays.toString(sugere.recomendacoes("Anonimo74", 5)));
-		
-		
+//		System.out.println(Arrays.toString(sugere.maisPopulares(7)));
+//		System.out.println(Arrays.toString(sugere.notasUsuario("Anonimo74")));
+//		
 
 //		for (int i = 0; i < sugere.usuariosSemelhantes("Nazareno").size(); i++) {
 //			java.util.Iterator<String[]> it =  sugere.usuariosSemelhantes("Nazareno").iterator();

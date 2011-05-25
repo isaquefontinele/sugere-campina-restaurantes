@@ -1,19 +1,24 @@
 package Projeto;
 
 import java.io.IOException;
+import java.text.Format;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 public class SugereCampina {
 	private Map opinioes;
 	private Map estabelecimentos;
-	private Map mediasGlobais;
-	private String[] mediasG;
+	private String[] notasGlobais;
+	private String[] mediasGlobais;
 	private ManipulaPesquisa mOpinioes;
 	private ManipulaRestaurante mEstabelecimentos;
+	private String novoUsuario;
+	private String[] novasPreferencias;
 
 	public SugereCampina(ManipulaPesquisa mOpinioes,
 			ManipulaRestaurante mEstabelecimentos) throws IOException {
@@ -21,11 +26,12 @@ public class SugereCampina {
 		this.mEstabelecimentos = mEstabelecimentos;
 		opinioes = mOpinioes.recolheDados();
 		estabelecimentos = mEstabelecimentos.recolheDados();
-		mediasGlobais = new HashMap<String, Double>();
-		mediasG = new String[estabelecimentos.size()];
+		mediasGlobais = new String[estabelecimentos.size()];
+		notasGlobais = new String[estabelecimentos.size()];
+
 	}
 
-	private void coletaMedias() {
+	private void coletaMedias() throws Exception {
 		ArrayList<String> estabelecimentos = getEstabelecimentos();
 		Double[] notas = new Double[estabelecimentos.size()];
 
@@ -42,12 +48,16 @@ public class SugereCampina {
 			}
 
 		}
+
 		for (int i = 0; i < notas.length; i++) {
-			// mediasGlobais.put(estabelecimentos.get(i),
-			// notas[i]/opinioes.size());
-			mediasG[i] = (notas[i] / opinioes.size() + ": " + estabelecimentos
+			notasGlobais[i] = notas[i] + ": " + estabelecimentos.get(i);
+			mediasGlobais[i] = (notas[i] / opinioes.size() + ": " + estabelecimentos
 					.get(i));
 		}
+
+		Ordena.bubbleSortDec(notasGlobais);
+		Ordena.bubbleSortDec(mediasGlobais);
+
 	}
 
 	@SuppressWarnings("unchecked")
@@ -62,16 +72,19 @@ public class SugereCampina {
 
 	}
 
-	public String[] getMediasGlobais() {
-		coletaMedias();
-		return mediasG;
+	public String[] maisPopulares(int numeroRecomendacoes) throws Exception {
+		String[] lista = getNotasGlobais();
+		String[] retorno = new String[numeroRecomendacoes];
+
+		for (int i = 0; i < numeroRecomendacoes; i++) {
+			retorno[i] = (i + 1) + ":" + lista[i].split(":")[1];
+		}
+		return retorno;
 	}
 
-	private Integer[] notasUsuario(String usuario) throws IOException {
+	public Integer[] notasUsuario(String usuario) throws IOException {
 		Integer[] notas = new Integer[estabelecimentos.size()];
-
 		String[] linhaLeitura = (String[]) opinioes.get(usuario);
-
 		for (int i = 2; i < linhaLeitura.length; ++i) {
 			String nota = (linhaLeitura[i].split(":")[0].replace(" ", ""));
 			notas[i - 2] = Integer.valueOf(nota);
@@ -104,47 +117,83 @@ public class SugereCampina {
 		return usuariosSemelhantes;
 	}
 
-	public String[] recomendacoes (String usuario, int R) throws Exception{
+	public String[] recomendacoes(String usuario, int r) throws Exception {
+		if (r < 0){
+			throw new Exception("Nao deve ser informado numero negativo.");
+		}
+		
 		String[] semelhantes = usuariosSemelhantes(usuario);
-		if (!(Arrays.toString(notasUsuario(usuario)).contains("0")) || Integer.valueOf(semelhantes[0].split(":")[0]) <= 0){
+		
+		//Verifica se o usuario nao tem niguem semelhante
+		if (!(Arrays.toString(notasUsuario(usuario)).contains("0"))
+				|| Integer.valueOf(semelhantes[0].split(":")[0]) <= 0) {
 			return null;
 		}
-		ArrayList<String> recomendacoes = new ArrayList<String>();
 		
-		String[] recomendacoesDefinitivas = new String[R];
+		
+		//Recolhe as notas do usuario atual para comparar com outro usuario.
 		Integer[] minhasNotas = notasUsuario(usuario);
-		
+		ArrayList<String> recomendacoes = new ArrayList<String>();
 		String usuarioSemelhante;
-		
 		int contador = 0;
+		
 		do {
-			System.out.println(recomendacoes.size());
+			//Coletando o nome do usuario com maior semelhanca pela ordem
 			usuarioSemelhante = semelhantes[contador].split(":")[1];
+			
+			//Coletando as notas do usuario semenhante
 			Integer[] notasUsuarioSemelhante = notasUsuario(usuarioSemelhante);
 			
 			for (int i = 0; i < minhasNotas.length; i++) {
-				if (minhasNotas[i] == 0 && notasUsuarioSemelhante[i] > 0 && !(recomendacoes.contains(getEstabelecimentos().get(i)))){
-					
-					recomendacoes.add(notasUsuarioSemelhante[i] + ":" + getEstabelecimentos().get(i));
+				//Confere se a nota do restaurante n para usuario atual e zero e para o semelhante e positiva 
+				//Segunda verificacacao e para saber se o restaurante atual nao ja esta na lista
+				if ((minhasNotas[i] == 0 && notasUsuarioSemelhante[i] > 0 ) && (!(recomendacoes.toString().contains(getEstabelecimentos().get(i))))) {
+						recomendacoes.add(notasUsuarioSemelhante[i] + ":"+ getEstabelecimentos().get(i) + ":" + usuarioSemelhante);
 				}
 			}
 			contador += 1;
-			
-		} while (recomendacoes.size() < R || contador >= semelhantes.length);
-			
+		} while ((recomendacoes.size() < r) && (contador < semelhantes.length) && (Integer.valueOf(semelhantes[contador].split(":")[0]) > 0)); //Problema ta aqui.
+		
+		
 		String[] recomendacoesAuxiliar = recomendacoes.toString().replace("[", "").replace("]", "").split(",");
 		Ordena.bubbleSortDec(recomendacoesAuxiliar);
-		
-		if (recomendacoesAuxiliar.length > R){
-			for (int i = 0; i < recomendacoesDefinitivas.length; i++) {
+	
+		contador = 0;
+		if (r < recomendacoesAuxiliar.length){
+			String[] recomendacoesDefinitivas = new String[r];
+			for (int i = 0; i < r; ++i) {
 				recomendacoesDefinitivas[i] = recomendacoesAuxiliar[i];
 			}
+			return recomendacoesDefinitivas;
 		}
-		else {
-			recomendacoesDefinitivas = recomendacoesAuxiliar;
-		}
-	
-		
-		return recomendacoesDefinitivas;
+		return recomendacoesAuxiliar; 
 	}
+
+	public String[] getMediasGlobais() throws Exception {
+		coletaMedias();
+		return mediasGlobais;
+	}
+
+	public String[] getNotasGlobais() throws Exception {
+		coletaMedias();
+		return notasGlobais;
+	}
+
+	public boolean verificaUsuario(String usuario) {
+		return opinioes.keySet().contains(usuario);
+	}
+
+	public void criarPerfil(String novoUsuario) throws Exception {
+		if (!(verificaUsuario(novoUsuario))) {
+			throw new Exception("Usuario nao existe");
+		}
+		this.novoUsuario = novoUsuario;
+		novasPreferencias = new String[estabelecimentos.size()];
+		Arrays.fill(novasPreferencias, "0");
+	}
+	
+	public void addPreferencia(int index ,String valor ){
+		
+	}
+
 }

@@ -62,6 +62,11 @@ public class JanelaArquivo extends javax.swing.JFrame {
         filter.addExtension("csv");
         filter.setDescription("Arquivos de dados");
     }
+    public String getEnderecoOpinioes (){
+        return jTxtOpinioes.getText();
+    }
+
+  
     private String abrirJanela(){
         janelaDeArquivos1 = new JFileChooser();
         janelaDeArquivos1.setFileFilter(filter);
@@ -211,7 +216,7 @@ public class JanelaArquivo extends javax.swing.JFrame {
     private void jBtArquivo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtArquivo2ActionPerformed
             jTxtOpinioes.setText(abrirJanela());
     }//GEN-LAST:event_jBtArquivo2ActionPerformed
-    private void jBtConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConectarActionPerformed
+    public void jBtConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConectarActionPerformed
         
     	if (!(jTxtOpinioes.getText().equals("") || jtxtEstabelecimentos.getText().equals(""))){
             try {

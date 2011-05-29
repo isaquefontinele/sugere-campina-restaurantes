@@ -11,24 +11,24 @@
 
 package Projeto;
 
-import java.awt.Dimension;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
+//import java.awt.Dimension;
+//import java.awt.Rectangle;
+//import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.SortedSet;
+//import java.util.HashSet;
+//import java.util.Iterator;
+//import java.util.Set;
+//import java.util.SortedSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.naming.ldap.SortKey;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+//import javax.naming.ldap.SortKey;
+//import javax.swing.JComboBox;
+//import javax.swing.JFrame;
+//import javax.swing.JPanel;
 import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
+//import javax.swing.table.TableColumnModel;
 
 import org.jdesktop.application.Action;
 
@@ -258,9 +258,10 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
 
     private void jComboPerfilItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboPerfilItemStateChanged
         try {
-            if (!(jComboPerfil.getSelectedItem().toString().equals(""))){
-                
-                montaTabela(jComboPerfil.getSelectedItem().toString());
+            if ((jComboPerfil.getSelectedItem() != null)){
+                 if (!(jComboPerfil.getSelectedItem().toString().equals(""))){
+                    montaTabela(jComboPerfil.getSelectedItem().toString());
+                }
             }
 
         } catch (Exception ex) {
@@ -302,7 +303,7 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
     	}while(sair);
     	
     	if (resposta != null){
-    	janelaNovoPerfil = new JanelaNovoPerfil(resposta, sugere);
+    	janelaNovoPerfil = new JanelaNovoPerfil(resposta, sugere, janela1);
         janelaNovoPerfil.setVisible(true);
     	CentralizaJanela.centralizaJanela(janelaNovoPerfil);
     	}

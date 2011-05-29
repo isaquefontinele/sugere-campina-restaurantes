@@ -62,20 +62,26 @@ public class ManipulaPesquisa extends ManipulacaoDeDados {
 		return arquivo.exists() && arquivo.canRead() && arquivo.canWrite();
 	}
 
-	public void appendUsuario(String nomeDoArquivo, String linha) throws IOException {
+	public void appendUsuario(String linha) throws IOException {
 		try {
-			File arquivo = new File(nomeDoArquivo);
+			File arquivo = new File(super.getNomeDoArquivo());
 			if (arquivoExisteLeEscreve(arquivo)) {
-				BufferedWriter escrever = new BufferedWriter(new FileWriter(arquivo));
+				BufferedWriter escrever = (new BufferedWriter(new FileWriter(arquivo,true)));
 				escrever.append(linha);
 				escrever.close();
 
 			} else {
-				throw new IOException("Problema no arquivo");
+
+                            throw new IOException("Problema no arquivo");
+
 			}
 		} catch (IOException ex) {
-			throw new IOException("Arquivo não encontrado");
+
+                    throw new IOException("Arquivo não encontrado");
+
 		}
+
+
 	}
 
 }

@@ -11,9 +11,13 @@
 
 package Projeto;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javax.swing.JComboBox;
 import javax.swing.table.TableColumn;
 
 /**
@@ -23,9 +27,10 @@ import javax.swing.table.TableColumn;
 public class JanelaNovoPerfil extends javax.swing.JFrame {
 
 	/** Creates new form JanelaNovoPerfil */
-	public JanelaNovoPerfil(String nomeUsuario, SugereCampina sugere) {
+	public JanelaNovoPerfil(String nomeUsuario, SugereCampina sugere, JanelaArquivo janelaArquivo) {
 		this.nomeUsuario = nomeUsuario;
 		this.sugere = sugere;
+                this.janelaArquivo = janelaArquivo;
 		initComponents();
 		jPEditaVoto.setVisible(false);
 		jLabUsuario.setText(this.nomeUsuario);
@@ -57,7 +62,11 @@ public class JanelaNovoPerfil extends javax.swing.JFrame {
 
 		atualizaTabelaVotos();
 	}
-	
+	private void alteraLinhaTabVotos(int linha, String novoValor){
+		itensTabela[linha][1] = novoValor;
+		atualizaTabelaVotos();
+		jTabVotos.setEnabled(true);
+	}
 	private void atualizaTabelaVotos(){
 		jTabVotos.setModel(new javax.swing.table.DefaultTableModel(
 				itensTabela,new String [] {"Estabelecimento", "Voto"}) {
@@ -112,6 +121,7 @@ public class JanelaNovoPerfil extends javax.swing.JFrame {
         jPEditaVoto = new javax.swing.JPanel();
         jLabEstabelecimento = new javax.swing.JLabel();
         jCobVotos = new javax.swing.JComboBox();
+        jBTProximo = new javax.swing.JButton();
         jBTOK = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabUsuario = new javax.swing.JLabel();
@@ -119,6 +129,7 @@ public class JanelaNovoPerfil extends javax.swing.JFrame {
         jBTAddPerfil = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Novo perfil de usuário");
         setResizable(false);
 
         jToolBar1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -219,12 +230,18 @@ public class JanelaNovoPerfil extends javax.swing.JFrame {
         jCobVotos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "5: Incrível. sensacional. impressionante", "4: Muito bom", "3: Bastante bom", "2: É bonzinho", "1: Não é ruim", "0: Não conheço", "-1: Acho um pouco ruim", "-2: Acho ruim", "-3: Acho basntante ruim", "-4: Acho muito ruim", "-5: Detesto" }));
         jCobVotos.setName("jCobVotos"); // NOI18N
 
+        jBTProximo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/Forward - Next.png"))); // NOI18N
+        jBTProximo.setToolTipText("Exibe o proximo da lista e grava o atual");
+        jBTProximo.setName("jBTProximo"); // NOI18N
+        jBTProximo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBTProximoActionPerformed(evt);
+            }
+        });
+
         jBTOK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/Spell.png"))); // NOI18N
-        jBTOK.setText("Ok");
-        jBTOK.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
-        jBTOK.setBorderPainted(false);
+        jBTOK.setToolTipText("Grava a alteração do registro atual");
         jBTOK.setName("jBTOK"); // NOI18N
-        jBTOK.setOpaque(false);
         jBTOK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBTOKActionPerformed(evt);
@@ -236,11 +253,14 @@ public class JanelaNovoPerfil extends javax.swing.JFrame {
         jPEditaVotoLayout.setHorizontalGroup(
             jPEditaVotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPEditaVotoLayout.createSequentialGroup()
-                .addComponent(jLabEstabelecimento, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabEstabelecimento, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
+                .addGap(48, 48, 48)
                 .addComponent(jCobVotos, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBTOK, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jBTOK)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBTProximo)
+                .addContainerGap())
         );
         jPEditaVotoLayout.setVerticalGroup(
             jPEditaVotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -249,7 +269,8 @@ public class JanelaNovoPerfil extends javax.swing.JFrame {
                     .addGroup(jPEditaVotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabEstabelecimento, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jCobVotos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jBTOK, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBTProximo)
+                    .addComponent(jBTOK))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -272,6 +293,11 @@ public class JanelaNovoPerfil extends javax.swing.JFrame {
         jBTAddPerfil.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBTAddPerfil.setName("jBTAddPerfil"); // NOI18N
         jBTAddPerfil.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBTAddPerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBTAddPerfilActionPerformed(evt);
+            }
+        });
         jToolBar2.add(jBTAddPerfil);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -284,7 +310,7 @@ public class JanelaNovoPerfil extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(75, 75, 75)
-                        .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
+                        .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,7 +318,7 @@ public class JanelaNovoPerfil extends javax.swing.JFrame {
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -324,15 +350,53 @@ public class JanelaNovoPerfil extends javax.swing.JFrame {
             porPopularidade.abrirJanelaPorPopularidade();
         }//GEN-LAST:event_jBTPorPopularidadeActionPerformed
 
+        private void jBTOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTOKActionPerformed
+           jBTAltera.setEnabled(true);
+	   alteraLinhaTabVotos(jTabVotos.getSelectedRow(), jCobVotos.getSelectedItem().toString());
+           jBTAddPerfil.setEnabled(true);
+           jPEditaVoto.setVisible(false);
+           jTabVotos.setEnabled(true);
+        }//GEN-LAST:event_jBTOKActionPerformed
+
+        private void jBTProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTProximoActionPerformed
+            int linha = jTabVotos.getSelectedRow()+1;
+            
+            if(linha < jTabVotos.getRowCount()){
+               jTabVotos.setEnabled(true);
+               alteraLinhaTabVotos(jTabVotos.getSelectedRow(), jCobVotos.getSelectedItem().toString());
+               jTabVotos.setRowSelectionInterval(linha , linha);
+               ativaAlteraLinha(linha);
+            }else{
+               Mensagem.exibirMensagem("Não há mais estabelecimentos a avançar.");
+               jBTOKActionPerformed(evt);
+            }
+        }//GEN-LAST:event_jBTProximoActionPerformed
+
+        private void jBTAddPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTAddPerfilActionPerformed
+        try {
+            janelaArquivo.getPesuisa().appendUsuario(montarLinhaGravacao());
+            janelaArquivo.jBtConectarActionPerformed(evt);
+            dispose();
+        } catch (IOException ex) {
+            Mensagem.exibirMensagem("Perfil não gravado \n" + ex.getMessage());
+        }
+
+        }//GEN-LAST:event_jBTAddPerfilActionPerformed
+        private String montarLinhaGravacao(){
+            String[] votos = new String[sugere.getEstabelecimentos().size()];
+            String dataHora = DataHora.getDateHora();
+            String nomeUsuario;
+            for (int i = 0; i < votos.length; i++) {
+                votos[i] = itensTabela[i][1];
+            }
+            nomeUsuario = jLabUsuario.getText();
+            
+
+        return ("\n" + dataHora + ";" + nomeUsuario + ";" + Arrays.toString(votos).replace(",", ";").replace("[", "").replace("]", ""));
+        }
 	private void jBTRankingActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
 		ranking.abrirJanelaRanking();
 	}// GEN-LAST:event_jButton1ActionPerformed
-
-	private void jBTOKActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton6ActionPerformed
-		jBTAltera.setEnabled(true);
-                jBTAddPerfil.setEnabled(true);
-                jPEditaVoto.setVisible(false);
-	}// GEN-LAST:event_jButton6ActionPerformed
 
 	private void jBTPorPerfilActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton4ActionPerformed
         
@@ -340,19 +404,20 @@ public class JanelaNovoPerfil extends javax.swing.JFrame {
 	}// GEN-LAST:event_jButton4ActionPerformed
 
 	private void jBTAlteraActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
-            if (jTabVotos.getSelectedColumn() == -1){
+            ativaAlteraLinha(jTabVotos.getSelectedRow());
+       }// GEN-LAST:event_jButton2ActionPerformed
+         private void ativaAlteraLinha(int linha){
+           if (linha == -1){
                 Mensagem.exibirMensagem("Você deve solucionar uma linha na tabela primeiro.");
             }else{
-                jTabVotos.getSelectedRow();
-                jLabEstabelecimento.setText((String) jTabVotos.getValueAt(jTabVotos.getSelectedRow(), jTabVotos.getSelectedColumn()));
-                jCobVotos.setSelectedItem((String) jTabVotos.getValueAt(jTabVotos.getSelectedRow(), 1));
+                jLabEstabelecimento.setText((String) jTabVotos.getValueAt(linha, 0));
+                jCobVotos.setSelectedItem((String) jTabVotos.getValueAt(linha , 1));
                 jBTAltera.setEnabled(false);
                 jBTAddPerfil.setEnabled(false);
                 jPEditaVoto.setVisible(true);
+                jTabVotos.setEnabled(false);
             }
-
-	}// GEN-LAST:event_jButton2ActionPerformed
-
+         }
 	/**
 	 * @param args
 	 *            the command line arguments
@@ -360,7 +425,7 @@ public class JanelaNovoPerfil extends javax.swing.JFrame {
 	public static void main(String args[]) {
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new JanelaNovoPerfil(nomeUsuario, sugere).setVisible(true);
+				new JanelaNovoPerfil(nomeUsuario, sugere, janelaArquivo).setVisible(true);
 			}
 		});
 	}
@@ -371,6 +436,7 @@ public class JanelaNovoPerfil extends javax.swing.JFrame {
     private javax.swing.JButton jBTOK;
     private javax.swing.JButton jBTPorPerfil;
     private javax.swing.JButton jBTPorPopularidade;
+    private javax.swing.JButton jBTProximo;
     private javax.swing.JButton jBTRanking;
     private javax.swing.JComboBox jCobVotos;
     private javax.swing.JLabel jLabEstabelecimento;
@@ -388,4 +454,5 @@ public class JanelaNovoPerfil extends javax.swing.JFrame {
     private static SugereCampina sugere;
     private static String nomeUsuario;
     private String[][] itensTabela;
+    private static JanelaArquivo janelaArquivo;
 }

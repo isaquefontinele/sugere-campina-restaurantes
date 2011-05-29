@@ -23,7 +23,10 @@ public abstract class ManipulacaoDeDados {
 	public String[] getLinhaCabecalho() {
 		return linhaCabecalho;
 	}
-	
+
+        public String getNomeDoArquivo(){
+            return nomeDoArquivo;
+        }
 	protected void lerArquivo() throws IOException {
 			arquivoLido = new FileReader(nomeDoArquivo);
                        

@@ -1,11 +1,9 @@
 package Projeto;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 
 public abstract class ManipulacaoDeDados {
 
@@ -18,26 +16,17 @@ public abstract class ManipulacaoDeDados {
 		this.nomeDoArquivo = nomeDoArquivo;
 		}
 
-	protected void lerArquivo() throws IOException {
-		try {
-			arquivoLido = new FileReader(nomeDoArquivo);
-		} catch (IOException ex) {
-			mensagem.exibirMensagem(ex.getMessage());
-		}
+	protected void fecharArquivo() throws IOException {
+			arquivoLido.close();
 	}
 
-	protected void fecharArquivo() throws IOException {
-		try{
-			arquivoLido.close();
-		}
-		catch (IOException ex) {
-			mensagem.exibirMensagem(ex.getMessage());
-		}
-		
-	}
-	
 	public String[] getLinhaCabecalho() {
 		return linhaCabecalho;
+	}
+	
+	protected void lerArquivo() throws IOException {
+			arquivoLido = new FileReader(nomeDoArquivo);
+                       
 	}
 
 	public abstract HashMap recolheDados() throws IOException;

@@ -16,7 +16,6 @@ public class ManipulaRestaurante extends ManipulacaoDeDados {
 		BufferedReader leitor;
 		String linha;
 		HashMap mapa = null;
-		try {
 			
 			super.lerArquivo();
 			leitor = new BufferedReader(super.arquivoLido);
@@ -28,9 +27,8 @@ public class ManipulaRestaurante extends ManipulacaoDeDados {
 				mapa.put(chave, dadosLinha);
 			}
 			super.fecharArquivo();
-		}finally{
 			return mapa;
-		}
+		
 	}
 
 }

@@ -1,16 +1,9 @@
 package Projeto;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.Formatter;
 import java.util.HashMap;
-import java.util.HashSet;
-
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-import javax.swing.text.html.HTMLDocument.Iterator;
+import java.util.Set;
 
 public class teste {
 
@@ -19,18 +12,28 @@ public class teste {
 	private static SugereCampina sugere;
 	
 	public static void main(String[] args) throws Exception {
-		teste1 = new ManipulaPesquisa("opinioes-dos-usuarios-v2.data");
-		teste2 = new ManipulaRestaurante("lista_estabelecimentos_projeto_lp2-v2.data");
+		teste1 = new ManipulaPesquisa("/media/ACER/Users/Laerton/workspace/opinioes-dos-usuarios-v2.data");
+		teste2 = new ManipulaRestaurante("/home/laerton/workspace/Projeto/lista_estabelecimentos_projeto_lp2.csv");
 		sugere = new SugereCampina(teste1, teste2);
+		Integer[] notas = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; 
+	    
+		System.out.println(Arrays.toString(sugere.recomendacoes(notas, 39)));
 		
-//		java.util.Iterator it = sugere.opinioes.keySet().iterator();
 //		while (it.hasNext()){
 //			String nome = (String) it.next();
 //			System.out.println(nome + ", " + Arrays.toString(sugere.notasUsuario(nome)));
 //		}
-		
-		
-		System.out.println(Arrays.toString(sugere.recomendacoes("Anonimo74", 5)));
+//		HashMap mapa = teste1.recolheDados();
+//                Set chaves = mapa.keySet();
+//                String [] linhaTemporaria = (String[]) mapa.get("Anonimo1");
+//                mapa.keySet().remove("Anonimo1");
+//                mapa.put("Anonimo01", linhaTemporaria);
+//                System.out.println(mapa.keySet());
+//                
+//
+//		System.out.println(sugere.getEstabelecimentos().size());
+//		System.out.println(Arrays.toString(sugere.recomendacoes("Rayff Queiroga", 5)));
+
 //		System.out.println(Arrays.toString(sugere.maisPopulares(7)));
 //		System.out.println(Arrays.toString(sugere.notasUsuario("Anonimo74")));
 //		

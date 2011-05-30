@@ -10,13 +10,20 @@ public class AcoesBarraFerramentas {
 
 	private SugereCampina sugere;
 	private JanelaGenerica janelaGenerica;
-
+	/**
+	 * Construtor da Classe AcoesBarraFerramentas
+	 * Cria uma janela genérica para os algoritmos de sugestões por ranking, popularidade e perfis)
+	 * @param Objeto do tipo SugereCampina
+	 * @param Objeto do tipo JanelaGerica
+	 */
 	public AcoesBarraFerramentas(SugereCampina sugere,
 			JanelaGenerica janelaGenerica) {
 		this.janelaGenerica = janelaGenerica;
 		this.sugere = sugere;
 	}
-
+	/**
+	 * Exibe na tela um objeto do tipo JanelaGerica com o resultado do algoritmo ranking
+	 */
 	public void abrirJanelaRanking() {
 		janelaGenerica.setVisible(true);
 		janelaGenerica.setTitle("Ranking");
@@ -30,7 +37,10 @@ public class AcoesBarraFerramentas {
 			Mensagem.exibirMensagem(e.getMessage());
 		}
 	}
-
+	/**
+	 * Exibe na tela um objeto do tipo JanelaGerica com o resultado do algoritmo popularidade
+	 * Haverá requisição via inputbox da quantidade a ser apresentada
+	 */
 	public void abrirJanelaPorPopularidade() {
 		String resposta = mensagemIndicacoes();
 
@@ -68,6 +78,11 @@ public class AcoesBarraFerramentas {
 
 		}
 	}
+	/**
+	 * Exibe na tela um objeto do tipo JanelaGerica com o resultado do algoritmo por perfil
+	 * Haverá requisição via inputbox da quantidade a ser apresentada
+	 * @param Integer[] contendo as notas para análise
+	 */
 	public void abrirJanelaPorPerfilActionPerformed(Integer[] notas) {
 		String resposta = mensagemIndicacoes();
 		if (resposta != null) {
@@ -97,9 +112,12 @@ public class AcoesBarraFerramentas {
 
 		}
 	}
-
-	public void abrirJanelaPorPerfilActionPerformed(String usuario) {
-		String resposta = mensagemIndicacoes();
+	/**
+	 * Exibe na tela um objeto do tipo JanelaGerica com o resultado do algoritmo por perfil
+	 * Haverá requisição via inputbox da quantidade a ser apresentada
+	 * @param String contendo o nome do usuário a ser analisado
+	 */
+	public void abrirJanelaPorPerfilActionPerformed(String usuario) {String resposta = mensagemIndicacoes();
 		if (resposta != null) {
 
 			janelaGenerica.setTitle("Indicações por perfil.");

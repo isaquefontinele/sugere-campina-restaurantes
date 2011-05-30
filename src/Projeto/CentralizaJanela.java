@@ -5,7 +5,9 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
-
+/**
+ *
+ */
 public class CentralizaJanela {
 	public static void centralizaJanela(JFrame componente)
     {

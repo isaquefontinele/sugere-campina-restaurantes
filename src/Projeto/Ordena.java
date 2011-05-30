@@ -1,8 +1,17 @@
 package Projeto;
 
 import java.util.ArrayList;
-
+/**
+ * Classe responsável pela ordenação dos dados através do algoritmo Bubble Sort
+ * @author Laerton
+ *
+ */
 public class Ordena {
+	/**
+	 * Recebe um Array de string com as notas dos usuários, que será ordenado pelas notas correspondentes
+	 * @param String[] - Notas dos usuários
+	 * @throws Exception - Notas inválidas, Array Vazio
+	 */
 	 public static void bubbleSort(String[] valores) throws Exception {
 		 	if (valores.length == 0){
 		 		throw new Exception("Nao eh permitido um array vazio.");
@@ -12,7 +21,7 @@ public class Ordena {
 		 		throw new Exception("Tem que haver : separando os dois campos.");
 		 	}
 		 	
-		 	if (valores[0].split(":")[0].matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")){
+		 	if (valores[0].split(":")[0].matches("^[a-zA-ZÃ�Ã‚ÃƒÃ€Ã‡Ã‰ÃŠÃ�Ã“Ã”Ã•ÃšÃœÃ¡Ã¢Ã£Ã Ã§Ã©ÃªÃ­Ã³Ã´ÃµÃºÃ¼]*$")){
 		 		throw new Exception("O primeiro campo tem qua haver so caracteres numericos.");
 		 	}
 		 	
@@ -27,6 +36,11 @@ public class Ordena {
 	        }
 	   
 	    }
+	 /**
+	  * Recebe um ArrayList com as notas dos usuários, que será ordenado pelas notas correspondentes
+	  * @param String[] - Notas dos usuários
+	  * @throws Exception - Notas inválidas, Array Vazio
+	  */
 	 public static void bubbleSort(ArrayList<String> valores) throws Exception {
 		 	if (valores.size() == 0){
 		 		throw new Exception("Nao eh permitido um array vazio.");
@@ -36,7 +50,7 @@ public class Ordena {
 		 		throw new Exception("Tem que haver : separando os dois campos.");
 		 	}
 		 	
-		 	if (valores.get(0).split(":")[0].matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")){
+		 	if (valores.get(0).split(":")[0].matches("^[a-zA-ZÃ�Ã‚ÃƒÃ€Ã‡Ã‰ÃŠÃ�Ã“Ã”Ã•ÃšÃœÃ¡Ã¢Ã£Ã Ã§Ã©ÃªÃ­Ã³Ã´ÃµÃºÃ¼]*$")){
 		 		throw new Exception("O primeiro campo tem qua haver so caracteres numericos.");
 		 	}
 		 	
@@ -51,7 +65,11 @@ public class Ordena {
 	        }
 	   
 	    }
-	 
+	 /**
+	  * Recebe um Array de string com as notas dos usuários, que será ordenado pelas notas correspondentes em ordem decrescente
+	  * @param String[] - Notas dos usuários
+	  * @throws Exception - Notas inválidas, Array Vazio
+	  */
 	 public static void bubbleSortDec(String[] valores) throws Exception {
 		 String[] copia = valores.clone();
 		 bubbleSort(copia);
@@ -59,7 +77,11 @@ public class Ordena {
 			 valores[i]= copia[(copia.length-1) - i];
 		 }
 	 }
-	 
+	 /**
+	  * Recebe um ArrayList com as notas dos usuários, que será ordenado pelas notas correspondentes em ordem decrescente
+	  * @param String[] - Notas dos usuários
+	  * @throws Exception - Notas inválidas, Array Vazio
+	  */
 	 public static void bubbleSortDec(ArrayList<String> valores) throws Exception {
 		 ArrayList<String> copia = (ArrayList<String>) valores.clone();
 		 bubbleSort(copia);

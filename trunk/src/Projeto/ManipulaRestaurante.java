@@ -3,9 +3,17 @@ package Projeto;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashMap;
-
+/**
+ * Classe filha de ManipulacaoDeDados que manipula e guarda em objetos os dados dos restaurantes
+ * @author Isaque
+ *
+ */
 public class ManipulaRestaurante extends ManipulacaoDeDados {
-
+	/**
+	 * Construtor da classe ManipulacaoDeDados
+	 * @param String - Nome do arquivo a ser lido
+	 * @throws IOException - Arquivo não encontrado
+	 */
 	public ManipulaRestaurante(String nomeDoArquivo) throws IOException {
 		super(nomeDoArquivo);
 		

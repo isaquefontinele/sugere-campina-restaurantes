@@ -5,6 +5,12 @@ import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Set;
 
+/**
+ * 
+ * @author Isaque
+ *
+ */
+
 public class teste {
 
 	private static ManipulaPesquisa teste1;
@@ -12,12 +18,17 @@ public class teste {
 	private static SugereCampina sugere;
 	
 	public static void main(String[] args) throws Exception {
-		teste1 = new ManipulaPesquisa("/media/ACER/Users/Laerton/workspace/opinioes-dos-usuarios-v2.data");
-		teste2 = new ManipulaRestaurante("/home/laerton/workspace/Projeto/lista_estabelecimentos_projeto_lp2.csv");
+		teste1 = new ManipulaPesquisa("opinioes-dos-usuarios-v2.data");
+		teste2 = new ManipulaRestaurante("lista_estabelecimentos_projeto_lp2-v2.data");
 		sugere = new SugereCampina(teste1, teste2);
-		Integer[] notas = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; 
-	    
-		System.out.println(Arrays.toString(sugere.recomendacoes(notas, 39)));
+//		Integer[] notas = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; 
+//	    
+//		System.out.println(Arrays.toString(sugere.recomendacoes(notas, 39)));
+		
+
+
+
+
 		
 //		while (it.hasNext()){
 //			String nome = (String) it.next();
@@ -54,7 +65,5 @@ public class teste {
 		
 		
 		
-		
-		
-		}
+		}	
 	}

@@ -4,7 +4,7 @@ package Projeto;
 
 /**
  * 
- * @author laerton, Isaque, ...
+ * @author Laerton, Isaque, ...
  */
 public class AcoesBarraFerramentas {
 
@@ -60,7 +60,7 @@ public class AcoesBarraFerramentas {
 							+ resposta
 							+ " opiniões, mas só há "
 							+ e.getMessage()
-							+ " estabelecimento(s).\n Por esse motivo restarei exibindo somente o(s) "
+							+ " estabelecimento(s).\n Por esse motivo estarei exibindo somente "
 							+ e.getMessage());
 					try {
 						janelaGenerica.povoaListaRanking(sugere
@@ -94,9 +94,9 @@ public class AcoesBarraFerramentas {
 				String[] retorno = sugere.recomendacoes(notas,
 						Integer.valueOf(resposta));
 				if (retorno.length < Integer.valueOf(resposta)) {
-					Mensagem.exibirMensagem("Da(s) " + resposta
-							+ " solicitada(s), só foi possível indicar "
-							+ retorno.length + " opiniões.");
+					Mensagem.exibirMensagem("Das " + resposta
+							+ " solicitadas, só foi possível indicar "
+							+ retorno.length + " opinião(ões).");
 				}
 
 				janelaGenerica.povoaListaRanking(retorno);
@@ -127,9 +127,9 @@ public class AcoesBarraFerramentas {
 				String[] retorno = sugere.recomendacoes(usuario,
 						Integer.valueOf(resposta));
 				if (retorno.length < Integer.valueOf(resposta)) {
-					Mensagem.exibirMensagem("Da(s) " + resposta
-							+ " solicitada(s), só foi possível indicar "
-							+ retorno.length + " opiniões.");
+					Mensagem.exibirMensagem("Das " + resposta
+							+ " solicitadas, só foi possível indicar "
+							+ retorno.length + " opinião(ões).");
 				}
 
 				janelaGenerica.povoaListaRanking(retorno);

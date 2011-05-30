@@ -9,10 +9,10 @@ package Projeto;
 public class AcoesBarraFerramentas {
 
 	private SugereCampina sugere;
-	private JanelaGerica janelaGenerica;
+	private JanelaGenerica janelaGenerica;
 
 	public AcoesBarraFerramentas(SugereCampina sugere,
-			JanelaGerica janelaGenerica) {
+			JanelaGenerica janelaGenerica) {
 		this.janelaGenerica = janelaGenerica;
 		this.sugere = sugere;
 	}

@@ -4,23 +4,21 @@
  */
 
 /*
- * JanelaGerica.java
+ * JanelaGenerica.java
  *
  * Created on 28/05/2011, 11:15:40
  */
 
 package Projeto;
 
-import javax.swing.Icon;
-
 /**
  *
- * @author laerton
+ * @author Laerton, Isaque, ...
  */
-public class JanelaGerica extends javax.swing.JFrame {
+public class JanelaGenerica extends javax.swing.JFrame {
 
-    /** Creates new form JanelaGerica */
-    public JanelaGerica() {
+    /** Creates new form JanelaGenerica */
+    public JanelaGenerica() {
         initComponents();
     }
 
@@ -102,14 +100,17 @@ public class JanelaGerica extends javax.swing.JFrame {
     public void povoaListaRanking (final String[] ranking ){
     	jListaRanking.setModel(new javax.swing.AbstractListModel() {
             String[] strings = ranking;
+            @Override
             public int getSize() { return strings.length; }
+            @Override
             public Object getElementAt(int i) { return strings[i]; }});
     }
     
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new JanelaGerica().setVisible(true);
+                new JanelaGenerica().setVisible(true);
             }
         });
     }

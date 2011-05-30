@@ -20,7 +20,7 @@ import org.jdesktop.application.Action;
 
 /**
  * Contrutor do objeto SugereCampina Aplication - Este cria a janela principal da aplicação
- * @author laerton, Isaque, ...
+ * @author Laerton, Isaque, ...
  */
 public class SugereCampinaAplication extends javax.swing.JFrame {
 

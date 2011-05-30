@@ -37,7 +37,6 @@ public class JanelaArquivo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtArquivo1;
-
     private javax.swing.JButton jBtArquivo2;
     private javax.swing.JButton jBtConectar;
     private javax.swing.JLabel jLabel1;
@@ -134,7 +133,7 @@ public class JanelaArquivo extends javax.swing.JFrame {
 
         jTxtOpinioes.setName("jTxtOpinioes"); // NOI18N
 
-        jBtArquivo1.setIcon(new javax.swing.ImageIcon("/media/ACER/Users/Laerton/workspace/Projeto/Icones/abrir.png")); // NOI18N
+        jBtArquivo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/abrir.png"))); // NOI18N
         jBtArquivo1.setText("Arquivo");
         jBtArquivo1.setName("jBtArquivo1"); // NOI18N
         jBtArquivo1.addActionListener(new java.awt.event.ActionListener() {
@@ -143,7 +142,7 @@ public class JanelaArquivo extends javax.swing.JFrame {
             }
         });
 
-        jBtArquivo2.setIcon(new javax.swing.ImageIcon("/media/ACER/Users/Laerton/workspace/Projeto/Icones/abrir.png")); // NOI18N
+        jBtArquivo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/abrir.png"))); // NOI18N
         jBtArquivo2.setText("Arquivo");
         jBtArquivo2.setName("jBtArquivo2"); // NOI18N
         jBtArquivo2.addActionListener(new java.awt.event.ActionListener() {
@@ -152,6 +151,7 @@ public class JanelaArquivo extends javax.swing.JFrame {
             }
         });
 
+        jBtConectar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/Spell.png"))); // NOI18N
         jBtConectar.setText("Conectar");
         jBtConectar.setName("jBtConectar"); // NOI18N
         jBtConectar.addActionListener(new java.awt.event.ActionListener() {
@@ -165,21 +165,22 @@ public class JanelaArquivo extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtConectar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTxtOpinioes, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
-                            .addComponent(jtxtEstabelecimentos, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jBtArquivo1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBtConectar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jBtArquivo2, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE))))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTxtOpinioes, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+                                    .addComponent(jtxtEstabelecimentos, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jBtArquivo1, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                                    .addComponent(jBtArquivo2, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))))))
                 .addGap(42, 42, 42))
         );
         layout.setVerticalGroup(
@@ -200,8 +201,8 @@ public class JanelaArquivo extends javax.swing.JFrame {
                     .addComponent(jTxtOpinioes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtArquivo2))
                 .addGap(26, 26, 26)
-                .addComponent(jBtConectar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jBtConectar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();

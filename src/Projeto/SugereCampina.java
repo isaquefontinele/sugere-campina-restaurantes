@@ -35,6 +35,7 @@ public class SugereCampina {
 		estabelecimentos = mEstabelecimentos.recolheDados();
 		mediasGlobais = new String[estabelecimentos.size()];
 		notasGlobais = new String[estabelecimentos.size()];
+		
 
 	}
 
@@ -197,10 +198,12 @@ public class SugereCampina {
 		String[] semelhantes = usuariosSemelhantes(minhasNotas);
 
 		// Verifica se o usuario nao notas zero
-		if (!(Arrays.toString(minhasNotas).contains("0"))) {
+		if (!(Arrays.toString(minhasNotas).contains("0"))
+				|| Integer.valueOf(semelhantes[0].split(":")[0]) <= 0) {
 			return null;
 		}
-
+		
+		
 		// Recolhe as notas do usuario atual para comparar com outro usuario.
 		// Integer[] minhasNotas = notasUsuario(usuario);
 		ArrayList<String> recomendacoes = new ArrayList<String>();
@@ -220,7 +223,7 @@ public class SugereCampina {
 				// e para o semelhante e positiva
 				// Segunda verificacacao e para saber se o restaurante atual nao
 				// ja esta na lista
-				if ((minhasNotas[i] == 0)
+				if ((minhasNotas[i] == 0 && notasUsuarioSemelhante[i] > 0)
 						&& (!(recomendacoes.toString()
 								.contains(getEstabelecimentos().get(i))))) {
 					recomendacoesPorUsuario.add(notasUsuarioSemelhante[i] + ":"

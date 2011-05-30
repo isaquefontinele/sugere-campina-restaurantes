@@ -14,6 +14,7 @@ package Projeto;
 //import com.sun.xml.internal.ws.api.message.Message;
 import java.io.IOException;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 
 /**
  *
@@ -60,6 +61,7 @@ public class JanelaArquivo extends javax.swing.JFrame {
         filter.addExtension("data");
         filter.addExtension("csv");
         filter.setDescription("Arquivos de dados");
+        
     }
     public String getEnderecoOpinioes (){
         return jTxtOpinioes.getText();
@@ -118,6 +120,7 @@ public class JanelaArquivo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Selecao de arquivos");
+        
         setIconImages(null);
 
         jLabel1.setText("Digite ou selecione a origem dos dados abaixo.");
@@ -152,7 +155,7 @@ public class JanelaArquivo extends javax.swing.JFrame {
         });
 
         jBtConectar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/Spell.png"))); // NOI18N
-        jBtConectar.setText("Conectar");
+        jBtConectar.setText("Abrir");
         jBtConectar.setName("jBtConectar"); // NOI18N
         jBtConectar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

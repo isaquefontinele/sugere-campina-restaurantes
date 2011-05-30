@@ -1,6 +1,8 @@
 
 package Projeto;
 
+import java.util.Random;
+
 
 /**
  * 
@@ -78,6 +80,7 @@ public class AcoesBarraFerramentas {
 
 		}
 	}
+	
 	/**
 	 * Exibe na tela um objeto do tipo JanelaGerica com o resultado do algoritmo por perfil
 	 * Haverá requisição via inputbox da quantidade a ser apresentada
@@ -104,10 +107,16 @@ public class AcoesBarraFerramentas {
 
 			} catch (Exception e) {
 				if (e.getMessage() == null) {
-					Mensagem.exibirMensagem("Não há sugestões para esse perfil.");
+					int intRespota = Mensagem.exibePergunta("Não há sugestões para esse perfil.\nDeseja exibir a lista de ranking?");
+					if (intRespota == 0){
+						abrirJanelaRanking();
+					}
 				} else {
 					Mensagem.exibirMensagem(e.getMessage());
 				}
+				
+				
+				
 			}
 
 		}
@@ -137,7 +146,10 @@ public class AcoesBarraFerramentas {
 
 			} catch (Exception e) {
 				if (e.getMessage() == null) {
-					Mensagem.exibirMensagem("Não há sugestões para esse perfil.");
+					int intRespota = Mensagem.exibePergunta("Não há sugestões para esse perfil.\nDeseja exibir a lista de ranking?");
+					if (intRespota == 0){
+						abrirJanelaRanking();
+					}
 				} else {
 					Mensagem.exibirMensagem(e.getMessage());
 				}

@@ -13,12 +13,11 @@ package Projeto;
 
 //import com.sun.xml.internal.ws.api.message.Message;
 import java.io.IOException;
-
 import javax.swing.JFileChooser;
 
 /**
  *
- * @author laerton
+ * @author laerton, Isaque, ....
  */
 public class JanelaArquivo extends javax.swing.JFrame {
 
@@ -27,8 +26,8 @@ public class JanelaArquivo extends javax.swing.JFrame {
     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-
                 new JanelaArquivo(janelaPrincipal).setVisible(true);
             }
         });
@@ -55,6 +54,7 @@ public class JanelaArquivo extends javax.swing.JFrame {
     private ManipulaRestaurante restaurante;
     private static SugereCampinaAplication janelaPrincipal;
     /** Creates new form JanelaArquivo */
+    @SuppressWarnings("static-access")
     public JanelaArquivo(SugereCampinaAplication janelaPrincipal) {
         this.janelaPrincipal = janelaPrincipal;
     	initComponents();
@@ -65,8 +65,8 @@ public class JanelaArquivo extends javax.swing.JFrame {
     public String getEnderecoOpinioes (){
         return jTxtOpinioes.getText();
     }
-
-  
+    //Cria um obj do tipo JFileChooser para uma janela de  dialogo de abertura de arquivo
+    //Retorna o emdereço completo do arquivo
     private String abrirJanela(){
         janelaDeArquivos1 = new JFileChooser();
         janelaDeArquivos1.setFileFilter(filter);
@@ -85,11 +85,9 @@ public class JanelaArquivo extends javax.swing.JFrame {
     }
         return "";
     }
+    //Cria os objetos dos arquivos e seta SugereCampina na janela principal
     private void conectaArquivos() throws IOException {
-        //Muaddo temporariamente
-    		//pesquisa = new ManipulaPesquisa("/media/ACER/Users/Laerton/workspace/opinioes-dos-usuarios-v2.data");//jTxtOpinioes.getText());
-    		pesquisa = new ManipulaPesquisa(jTxtOpinioes.getText());
-			//restaurante = new ManipulaRestaurante("/media/ACER/Users/Laerton/workspace/lista_estabelecimentos_projeto_lp2-v2.data");//jtxtEstabelecimentos.getText());
+        	pesquisa = new ManipulaPesquisa(jTxtOpinioes.getText());
 			restaurante = new ManipulaRestaurante(jtxtEstabelecimentos.getText());
 			janelaPrincipal.criaSugereCampina(new SugereCampina(pesquisa, restaurante));
 		
@@ -221,11 +219,11 @@ public class JanelaArquivo extends javax.swing.JFrame {
     	if (!(jTxtOpinioes.getText().equals("") || jtxtEstabelecimentos.getText().equals(""))){
             try {
 				conectaArquivos();
+                                //Linhas qua atualiza os dados na janela principal
 				janelaPrincipal.mostraPainelDados();
 				janelaPrincipal.povoaComboPerfis();
 				setVisible(false);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				Mensagem.exibirMensagem(e.getMessage());
 			}
 			

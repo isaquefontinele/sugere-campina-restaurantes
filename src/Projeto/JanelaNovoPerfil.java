@@ -14,10 +14,6 @@ package Projeto;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.swing.JComboBox;
 import javax.swing.table.TableColumn;
 
 /**
@@ -27,16 +23,17 @@ import javax.swing.table.TableColumn;
 public class JanelaNovoPerfil extends javax.swing.JFrame {
 
 	/** Creates new form JanelaNovoPerfil */
+    @SuppressWarnings("static-access")
 	public JanelaNovoPerfil(String nomeUsuario, SugereCampina sugere, JanelaArquivo janelaArquivo) {
 		this.nomeUsuario = nomeUsuario;
 		this.sugere = sugere;
                 this.janelaArquivo = janelaArquivo;
 		initComponents();
 		jPEditaVoto.setVisible(false);
-		jLabUsuario.setText(this.nomeUsuario);
-        ranking = new AcoesBarraFerramentas(sugere, new JanelaGerica());
-        porPopularidade = new AcoesBarraFerramentas(sugere, new JanelaGerica());
-        porPerfil = new AcoesBarraFerramentas(sugere, new JanelaGerica());
+		jLabUsuario.setText(nomeUsuario);
+                ranking = new AcoesBarraFerramentas(sugere, new JanelaGenerica());
+                porPopularidade = new AcoesBarraFerramentas(sugere, new JanelaGenerica());
+                porPerfil = new AcoesBarraFerramentas(sugere, new JanelaGenerica());
 		povoaTabelaVotos();
 
 	}
@@ -77,10 +74,12 @@ public class JanelaNovoPerfil extends javax.swing.JFrame {
 	                false, false
 	            };
 
+            @Override
 	            public Class getColumnClass(int columnIndex) {
 	                return types [columnIndex];
 	            }
 
+            @Override
 	            public boolean isCellEditable(int rowIndex, int columnIndex) {
 	                return canEdit [columnIndex];
 	            }
@@ -116,6 +115,7 @@ public class JanelaNovoPerfil extends javax.swing.JFrame {
         jBTRanking = new javax.swing.JButton();
         jBTPorPopularidade = new javax.swing.JButton();
         jBTPorPerfil = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabVotos = new javax.swing.JTable();
         jPEditaVoto = new javax.swing.JPanel();
@@ -193,6 +193,20 @@ public class JanelaNovoPerfil extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(jBTPorPerfil);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/32/door.png"))); // NOI18N
+        jButton1.setToolTipText("Sair");
+        jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setName("jButton1"); // NOI18N
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton1);
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
@@ -382,16 +396,18 @@ public class JanelaNovoPerfil extends javax.swing.JFrame {
         }
 
         }//GEN-LAST:event_jBTAddPerfilActionPerformed
+
+        private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+            dispose();
+        }//GEN-LAST:event_jButton1ActionPerformed
         private String montarLinhaGravacao(){
             String[] votos = new String[sugere.getEstabelecimentos().size()];
             String dataHora = DataHora.getDateHora();
-            String nomeUsuario;
+            
             for (int i = 0; i < votos.length; i++) {
                 votos[i] = itensTabela[i][1];
             }
-            nomeUsuario = jLabUsuario.getText();
             
-
         return ("\n" + dataHora + ";" + nomeUsuario + ";" + Arrays.toString(votos).replace(",", ";").replace("[", "").replace("]", ""));
         }
 	private void jBTRankingActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
@@ -424,6 +440,7 @@ public class JanelaNovoPerfil extends javax.swing.JFrame {
 	 */
 	public static void main(String args[]) {
 		java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
 			public void run() {
 				new JanelaNovoPerfil(nomeUsuario, sugere, janelaArquivo).setVisible(true);
 			}
@@ -438,6 +455,7 @@ public class JanelaNovoPerfil extends javax.swing.JFrame {
     private javax.swing.JButton jBTPorPopularidade;
     private javax.swing.JButton jBTProximo;
     private javax.swing.JButton jBTRanking;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jCobVotos;
     private javax.swing.JLabel jLabEstabelecimento;
     private javax.swing.JLabel jLabUsuario;

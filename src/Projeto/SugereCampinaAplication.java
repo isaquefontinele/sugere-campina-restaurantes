@@ -11,30 +11,16 @@
 
 package Projeto;
 
-//import java.awt.Dimension;
-//import java.awt.Rectangle;
-//import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Arrays;
-//import java.util.HashSet;
-//import java.util.Iterator;
-//import java.util.Set;
-//import java.util.SortedSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-//import javax.naming.ldap.SortKey;
-//import javax.swing.JComboBox;
-//import javax.swing.JFrame;
-//import javax.swing.JPanel;
 import javax.swing.table.TableColumn;
-//import javax.swing.table.TableColumnModel;
-
 import org.jdesktop.application.Action;
 
 /**
- *
- * @author laerton
+ * Contrutor do objeto SugereCampina Aplication - Este cria a janela principal da aplicação
+ * @author laerton, Isaque, ...
  */
 public class SugereCampinaAplication extends javax.swing.JFrame {
 
@@ -44,6 +30,7 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
         Ferramentas.setVisible(false);
         jPaienelDados.setVisible(false);
     }
+
     public void mostraPainelDados(){
     	Ferramentas.setVisible(true);
     	jPaienelDados.setVisible(true);
@@ -327,10 +314,7 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
 			
 			celulas[i][1] = (voto.contains("-")? voto : " "+ voto ) + " : " + opinioes[i+2].split(":")[1].trim(); 
 		}
-    	//Montando a tabela
-        //jTabelaOpinioes.setModel(new javax.swing.table.DefaultTableModel(
-        //        celulas,rotulos));
-        
+    	
     	jTabelaOpinioes.setModel(new javax.swing.table.DefaultTableModel(
     			celulas,rotulos) {
                 Class[] types = new Class [] {
@@ -360,9 +344,9 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
     }
     public void criaSugereCampina(SugereCampina sugere){
         this.sugere = sugere;
-        porPopularidade = new AcoesBarraFerramentas(sugere, new JanelaGerica());
-        porPerfil = new AcoesBarraFerramentas(sugere, new JanelaGerica());
-        ranking = new AcoesBarraFerramentas(sugere, new JanelaGerica());
+        porPopularidade = new AcoesBarraFerramentas(sugere, new JanelaGenerica());
+        porPerfil = new AcoesBarraFerramentas(sugere, new JanelaGenerica());
+        ranking = new AcoesBarraFerramentas(sugere, new JanelaGenerica());
     }
     public void povoaComboPerfis(){
         
@@ -420,12 +404,9 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private static JanelaArquivo janela1;
     private static SugereCampinaAplication janelaPrincipal;
-    //private JanelaGerica janelaRaking;
-    //private JanelaGerica janelaPorPopularidade;
     private AcoesBarraFerramentas porPopularidade;
     private AcoesBarraFerramentas porPerfil;
     private AcoesBarraFerramentas ranking;
-    //private JanelaGerica janelaPorPerfil;
     private SugereCampina sugere;
     private JanelaNovoPerfil janelaNovoPerfil;
     

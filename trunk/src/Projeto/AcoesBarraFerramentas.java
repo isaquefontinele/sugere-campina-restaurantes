@@ -4,7 +4,7 @@ package Projeto;
 
 /**
  * 
- * @author laerton
+ * @author laerton, Isaque, ...
  */
 public class AcoesBarraFerramentas {
 

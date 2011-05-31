@@ -1,5 +1,6 @@
 package Projeto;
 
+import java.awt.Component;
 import java.awt.Frame;
 import java.awt.SplashScreen;
 import java.net.URL;
@@ -7,6 +8,7 @@ import java.util.Arrays;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Set;
+import javax.swing.JOptionPane;
 
 /**
  * 
@@ -28,7 +30,8 @@ public class teste {
 //	    
 //		System.out.println(Arrays.toString(sugere.recomendacoes(notas, 39)));
 		
-
+        Mensagem.exibirMensagem(String.valueOf(JOptionPane.showConfirmDialog(new Component() {} , "teste")));
+                   
 
 
 

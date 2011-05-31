@@ -12,7 +12,11 @@
 package Projeto;
 
 //import com.sun.xml.internal.ws.api.message.Message;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.IOException;
+import java.net.URL;
+
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 

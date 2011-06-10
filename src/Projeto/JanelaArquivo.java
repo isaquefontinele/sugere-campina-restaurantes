@@ -12,13 +12,10 @@
 package Projeto;
 
 //import com.sun.xml.internal.ws.api.message.Message;
-import java.awt.Image;
-import java.awt.Toolkit;
+
 import java.io.IOException;
-import java.net.URL;
 
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 
 /**
  *
@@ -54,8 +51,10 @@ public class JanelaArquivo extends javax.swing.JFrame {
     private String urlOpinioes;
     private JFileChooser janelaDeArquivos1;
     private final static ExtensionFileFilter filter = new ExtensionFileFilter();
-    private ManipulaPesquisa pesquisa;
-    private ManipulaRestaurante restaurante;
+    private Usuarios usuario;
+    private Estabelecimentos estabelecimentos;
+    private TrataArquivoOpinioes pesquisa;
+    private TrataArquivoEstabelecimento restaurante;
     private static SugereCampinaAplication janelaPrincipal;
     /** Creates new form JanelaArquivo */
     @SuppressWarnings("static-access")
@@ -92,15 +91,17 @@ public class JanelaArquivo extends javax.swing.JFrame {
     }
     //Cria os objetos dos arquivos e seta SugereCampina na janela principal
     private void conectaArquivos() throws IOException {
-        	pesquisa = new ManipulaPesquisa(jTxtOpinioes.getText());
-			restaurante = new ManipulaRestaurante(jtxtEstabelecimentos.getText());
-			janelaPrincipal.criaSugereCampina(new SugereCampina(pesquisa, restaurante));
+        	pesquisa = new TrataArquivoOpinioes(jTxtOpinioes.getText());
+                restaurante = new TrataArquivoEstabelecimento(jtxtEstabelecimentos.getText());
+		usuario = new Usuarios(pesquisa.recolheDados());
+                estabelecimentos = new Estabelecimentos(restaurante);
+                janelaPrincipal.criaSugere(usuario, estabelecimentos);
 		
     }
-    public ManipulaPesquisa getPesuisa (){
+    public TrataArquivoOpinioes getPesuisa (){
         return pesquisa;
     }
-    public ManipulaRestaurante getRestaurante (){
+    public TrataArquivoEstabelecimento getRestaurante (){
         return restaurante;
     }
     
@@ -227,7 +228,7 @@ public class JanelaArquivo extends javax.swing.JFrame {
 				conectaArquivos();
                                 //Linhas qua atualiza os dados na janela principal
 				janelaPrincipal.mostraPainelDados();
-				janelaPrincipal.povoaComboPerfis();
+				janelaPrincipal.montaComboPerfis();
 				setVisible(false);
 			} catch (IOException e) {
 				Mensagem.exibirMensagem(e.getMessage());

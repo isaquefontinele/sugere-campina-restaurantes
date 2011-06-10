@@ -1,16 +1,13 @@
 
 package Projeto;
 
-import java.util.Random;
 
 
 /**
  * 
  * @author Laerton, Isaque, ...
  */
-public class AcoesBarraFerramentas {
-
-	private SugereCampina sugere;
+public class AcoesBarraFerramentas extends AcoesEmJanelas {
 	private JanelaGenerica janelaGenerica;
 	/**
 	 * Construtor da Classe AcoesBarraFerramentas
@@ -18,24 +15,20 @@ public class AcoesBarraFerramentas {
 	 * @param Objeto do tipo SugereCampina
 	 * @param Objeto do tipo JanelaGerica
 	 */
-	public AcoesBarraFerramentas(SugereCampina sugere,
-			JanelaGenerica janelaGenerica) {
-		this.janelaGenerica = janelaGenerica;
-		this.sugere = sugere;
-	}
+
+        public AcoesBarraFerramentas(SugereCampina sugere) {
+            super(sugere);
+            this.janelaGenerica = new JanelaGenerica();
+        }
+      
 	/**
+         *
 	 * Exibe na tela um objeto do tipo JanelaGerica com o resultado do algoritmo ranking
 	 */
 	public void abrirJanelaRanking() {
-		janelaGenerica.setVisible(true);
-		janelaGenerica.setTitle("Ranking");
-
-		CentralizaJanela.centralizaJanela(janelaGenerica);
 		try {
-			janelaGenerica.povoaListaRanking(sugere.maisPopulares(sugere
-					.getEstabelecimentos().size()));
+                        inicializaJanelaGenerica("Ranking", super.getMaisPopulares());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			Mensagem.exibirMensagem(e.getMessage());
 		}
 	}
@@ -45,38 +38,15 @@ public class AcoesBarraFerramentas {
 	 */
 	public void abrirJanelaPorPopularidade() {
 		String resposta = mensagemIndicacoes();
-
-		if (resposta != null) {
-
-			janelaGenerica.setTitle("Indicações dos mais populares.");
-
-			CentralizaJanela.centralizaJanela(janelaGenerica);
-			try {
-				janelaGenerica.povoaListaRanking(sugere.maisPopulares(Integer
-						.valueOf(resposta)));
-				janelaGenerica.setVisible(true);
-			} catch (Exception e) {
-				if (e.getMessage().equals(
-						String.valueOf(sugere.getEstabelecimentos().size()))) {
-					Mensagem.exibirMensagem("Você solicitou "
-							+ resposta
-							+ " opiniões, mas só há "
-							+ e.getMessage()
-							+ " estabelecimento(s).\n Por esse motivo estarei exibindo somente "
-							+ e.getMessage());
-					try {
-						janelaGenerica.povoaListaRanking(sugere
-								.maisPopulares(Integer.valueOf(sugere
-										.getEstabelecimentos().size())));
-						janelaGenerica.setVisible(true);
-					} catch (Exception e1) {
-						Mensagem.exibirMensagem(e.getMessage());
-					}
-				} else {
-					Mensagem.exibirMensagem(e.getMessage());
-				}
-
-			}
+                if (resposta != null) {
+                try {
+                
+                                                inicializaJanelaGenerica("Indicações dos mais populares.", super.getMaisPopulares(Integer
+                                                                .valueOf(resposta)));
+              
+            } catch (Exception ex) {
+                Mensagem.exibirMensagem(ex.getMessage());
+            }
 
 		}
 	}
@@ -89,22 +59,15 @@ public class AcoesBarraFerramentas {
 	public void abrirJanelaPorPerfilActionPerformed(Integer[] notas) {
 		String resposta = mensagemIndicacoes();
 		if (resposta != null) {
-
-			janelaGenerica.setTitle("Indicações por perfil.");
-
-			CentralizaJanela.centralizaJanela(janelaGenerica);
 			try {
-				String[] retorno = sugere.recomendacoes(notas,
-						Integer.valueOf(resposta));
+                                String[] retorno = super.getPorPerfil(notas, Integer
+						.valueOf(resposta));
 				if (retorno.length < Integer.valueOf(resposta)) {
 					Mensagem.exibirMensagem("Das " + resposta
 							+ " solicitadas, só foi possível indicar "
 							+ retorno.length + " opinião(ões).");
 				}
-
-				janelaGenerica.povoaListaRanking(retorno);
-				janelaGenerica.setVisible(true);
-
+                                inicializaJanelaGenerica("Indicações por perfil.", retorno);
 			} catch (Exception e) {
 				if (e.getMessage() == null) {
 					int intRespota = Mensagem.exibePergunta("Não há sugestões para esse perfil.\nDeseja exibir a lista de ranking?");
@@ -114,11 +77,7 @@ public class AcoesBarraFerramentas {
 				} else {
 					Mensagem.exibirMensagem(e.getMessage());
 				}
-				
-				
-				
 			}
-
 		}
 	}
 	/**
@@ -126,29 +85,24 @@ public class AcoesBarraFerramentas {
 	 * Haverá requisição via inputbox da quantidade a ser apresentada
 	 * @param String contendo o nome do usuário a ser analisado
 	 */
-	public void abrirJanelaPorPerfilActionPerformed(String usuario) {String resposta = mensagemIndicacoes();
+	public void abrirJanelaPorPerfilActionPerformed(String usuario) {
+            
+            String resposta = mensagemIndicacoes();
 		if (resposta != null) {
-
-			janelaGenerica.setTitle("Indicações por perfil.");
-
-			CentralizaJanela.centralizaJanela(janelaGenerica);
 			try {
-				String[] retorno = sugere.recomendacoes(usuario,
+				String[] retorno = super.getPorPerfil(usuario,
 						Integer.valueOf(resposta));
-				if (retorno.length < Integer.valueOf(resposta)) {
+                        	if (retorno.length < Integer.valueOf(resposta)) {
 					Mensagem.exibirMensagem("Das " + resposta
 							+ " solicitadas, só foi possível indicar "
 							+ retorno.length + " opinião(ões).");
 				}
-
-				janelaGenerica.povoaListaRanking(retorno);
-				janelaGenerica.setVisible(true);
-
+                                inicializaJanelaGenerica("Indicações por perfil.", retorno);
 			} catch (Exception e) {
 				if (e.getMessage() == null) {
 					int intRespota = Mensagem.exibePergunta("Não há sugestões para esse perfil.\nDeseja exibir a lista de ranking?");
 					if (intRespota == 0){
-						abrirJanelaRanking();
+                        			abrirJanelaRanking();
 					}
 				} else {
 					Mensagem.exibirMensagem(e.getMessage());
@@ -156,25 +110,22 @@ public class AcoesBarraFerramentas {
 			}
 
 		}
+         
 	}
-
-	private String mensagemIndicacoes() {
-		String resposta = null;
-		boolean sair = true;
-		do {
-
-			resposta = Mensagem.caixaDeEntrada("Quantas indicações deseja?");
-			if (resposta != null) {
-				if (resposta.equals("") || Integer.valueOf(resposta) <= 0) {
-					Mensagem.exibirMensagem("Quantidade inválida");
-				} else {
-					sair = false;
-				}
-			} else {
-				sair = false;
-			}
-
-		} while (sair);
-		return resposta;
-	}
+  private void inicializaJanelaGenerica(String titulo, String[] conteudo ){
+            janelaGenerica.setTitle(titulo);
+	    CentralizaJanela.centralizaJanela(janelaGenerica);
+            janelaGenerica.povoaListaRanking(conteudo);
+	    janelaGenerica.setVisible(true);
+  }
+  /**
+   * Metodo que efetua a analise de acertos dos algoritimos dos objetos SugerePorPerfil e SugerePorPopularidade
+   */
+  public void abriComparacoes(){
+          super.threadComparaRecomendacoes();
+      
+        
+  }
+  
+  
 }

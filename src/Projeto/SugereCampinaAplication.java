@@ -37,6 +37,7 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
     public void mostraPainelDados(){
     	Ferramentas.setVisible(true);
     	jPaienelDados.setVisible(true);
+    	
     }
     /** This method is called from within the constructor to
      * initialize the form.
@@ -339,7 +340,7 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
             Mensagem.exibirMensagem(ex.getMessage());
         }
         try {
-            sugere = new SugereCampina(usuarios, estabilizamento);
+            sugere = new Sugere(usuarios, estabilizamento);
         } catch (IOException ex) {
             Mensagem.exibirMensagem(ex.getMessage());
         }
@@ -403,7 +404,7 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
     private AcoesBarraFerramentas porPopularidade;
     private AcoesBarraFerramentas porPerfil;
     private AcoesBarraFerramentas ranking;
-    private SugereCampina sugere;
+    private Sugere sugere;
     private SugerePopulares popular;
     private SugerePorPerfil sugerePorPefil;
     //private JanelaNovoPerfil janelaNovoPerfil;

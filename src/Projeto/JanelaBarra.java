@@ -88,6 +88,10 @@ public class JanelaBarra extends javax.swing.JFrame {
     public Integer getValorPosicao(){
         return jPBarra.getValue();
     }
+    
+    public void setjLabel1(String mensagem){
+    	jLabel1.setText(mensagem);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JProgressBar jPBarra;

@@ -16,7 +16,7 @@ public class AcoesBarraFerramentas extends AcoesEmJanelas {
 	 * @param Objeto do tipo JanelaGerica
 	 */
 
-        public AcoesBarraFerramentas(SugereCampina sugere) {
+        public AcoesBarraFerramentas(Sugere sugere) {
             super(sugere);
             this.janelaGenerica = new JanelaGenerica();
         }
@@ -92,12 +92,19 @@ public class AcoesBarraFerramentas extends AcoesEmJanelas {
 			try {
 				String[] retorno = super.getPorPerfil(usuario,
 						Integer.valueOf(resposta));
+							if (retorno !=null){
                         	if (retorno.length < Integer.valueOf(resposta)) {
 					Mensagem.exibirMensagem("Das " + resposta
 							+ " solicitadas, só foi possível indicar "
 							+ retorno.length + " opinião(ões).");
 				}
                                 inicializaJanelaGenerica("Indicações por perfil.", retorno);
+							}else{
+								int intRespota = Mensagem.exibePergunta("Não há sugestões para esse perfil.\nDeseja exibir a lista de ranking?");
+								if (intRespota == 0){
+			                        			abrirJanelaRanking();
+								}
+							}
 			} catch (Exception e) {
 				if (e.getMessage() == null) {
 					int intRespota = Mensagem.exibePergunta("Não há sugestões para esse perfil.\nDeseja exibir a lista de ranking?");

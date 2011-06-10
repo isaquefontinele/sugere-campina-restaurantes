@@ -14,7 +14,7 @@ import java.util.Iterator;
  *
  * @author Laerton Marques e Isaque.
  */
-public class SugerePopulares extends SugereCampina {
+public class SugerePopulares extends Sugere {
         private String[] notasGlobais;
         
         /**

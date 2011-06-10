@@ -25,7 +25,7 @@ public class JanelaNovoPerfil extends javax.swing.JFrame {
 
 	/** Creates new form JanelaNovoPerfil */
     @SuppressWarnings("static-access")
-	public JanelaNovoPerfil(String nomeUsuario,SugereCampina sugere,JanelaArquivo janelaArquivo) {
+	public JanelaNovoPerfil(String nomeUsuario,Sugere sugere,JanelaArquivo janelaArquivo) {
 		this.nomeUsuario = nomeUsuario;
                 this.janelaArquivo = janelaArquivo;
                 this.sugere = sugere;
@@ -475,7 +475,7 @@ public class JanelaNovoPerfil extends javax.swing.JFrame {
     private AcoesBarraFerramentas ranking;
     private AcoesBarraFerramentas porPerfil;
     private AcoesBarraFerramentas porPopularidade;
-    private static SugereCampina sugere;
+    private static Sugere sugere;
     private static String nomeUsuario;
     private String[][] itensTabela;
     private static JanelaArquivo janelaArquivo;

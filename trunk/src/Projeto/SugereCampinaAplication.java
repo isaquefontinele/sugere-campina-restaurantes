@@ -11,8 +11,8 @@
 
 package Projeto;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.TableColumn;
@@ -22,6 +22,7 @@ import org.jdesktop.application.Action;
  * Contrutor do objeto SugereCampina Aplication - Este cria a janela principal da aplicação
  * @author Laerton, Isaque, ...
  */
+@SuppressWarnings("serial")
 public class SugereCampinaAplication extends javax.swing.JFrame {
 
     /** Creates new form SugereCampinaAplication */
@@ -29,6 +30,8 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
         initComponents();
         Ferramentas.setVisible(false);
         jPaienelDados.setVisible(false);
+        
+        
     }
 
     public void mostraPainelDados(){
@@ -55,6 +58,7 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
         jBtRanking = new javax.swing.JButton();
         jBTPopular = new javax.swing.JButton();
         jBTPorPerfil = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
@@ -124,7 +128,7 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
                         .addGap(3, 3, 3)
                         .addComponent(jComboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(388, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         jPaienelDadosLayout.setVerticalGroup(
             jPaienelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,12 +193,23 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
         });
         Ferramentas.add(jBTPorPerfil);
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/32/Cycle.png"))); // NOI18N
+        jButton1.setToolTipText("Mostra a percentagem de acerto dos metodos de sugestões");
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setName("jBCompara"); // NOI18N
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        Ferramentas.add(jButton1);
+
         fileMenu.setText("Arquivo");
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(SugereCampinaAplication.class, this);
         openMenuItem.setAction(actionMap.get("abrirJanelaArquivo")); // NOI18N
-        openMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/abrir.png"))); // NOI18N
-        openMenuItem.setText("Abrir arquivos");
         fileMenu.add(openMenuItem);
 
         exitMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/sair.png"))); // NOI18N
@@ -221,11 +236,8 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Ferramentas, javax.swing.GroupLayout.PREFERRED_SIZE, 1914, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPaienelDados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+            .addComponent(Ferramentas, javax.swing.GroupLayout.DEFAULT_SIZE, 873, Short.MAX_VALUE)
+            .addComponent(jPaienelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,65 +281,36 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
     }
 
     private void jBtNovoPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoPerfilActionPerformed
-    	String resposta = null;
-    	boolean sair = true;
-    	do{
-    		resposta = Mensagem.caixaDeEntrada("Digite o nome do novo usuário:");
-    		if (resposta !=null){
-    			if (resposta.equals("")){
-    				Mensagem.exibirMensagem("Não é possível criar usuário em branco.");
-    			}else{
-    				if(sugere.verificaUsuario(resposta)){
-    					Mensagem.exibirMensagem("Usuário já cadastrado.");
-    				}else{
-    					sair = false;
-    				}
-    			}
-    			
-    		}else{
-    			sair = false;
-    		}
-    	}while(sair);
-    	
-    	if (resposta != null){
-    	janelaNovoPerfil = new JanelaNovoPerfil(resposta, sugere, janela1);
-        janelaNovoPerfil.setVisible(true);
-    	CentralizaJanela.centralizaJanela(janelaNovoPerfil);
-    	}
-        
+        acoes.acionaNovoPerfil(sugere, janela1);
     }//GEN-LAST:event_jBtNovoPerfilActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        porPerfil.abriComparacoes();
+    }//GEN-LAST:event_jButton1ActionPerformed
     
     public void montaTabela (String usuario ) throws Exception{
-    	if (usuario == null || usuario.equals("")) {
-    		throw new Exception("Deve ser informado um usuario.");
-    	}
-    	
-    	String [] opinioes = sugere.getOpinioes(usuario);
-    	String[][] celulas =  new String[sugere.getEstabelecimentos().size()][2];
-    	ArrayList<String> estabelecimentos = sugere.getEstabelecimentos();
+
+        String[][] celulas =  acoes.povoaTabelaVotos(usuario);
+
     	String[] rotulos = {"Estabelecimento", "Voto"};
-    	String voto;
-    	
-    	for (int i = 0; i < celulas.length; i++) {
-			celulas[i][0] = estabelecimentos.get(i);
-			voto = opinioes[i+2].split(":")[0].trim();
-			
-			celulas[i][1] = (voto.contains("-")? voto : " "+ voto ) + " : " + opinioes[i+2].split(":")[1].trim(); 
-		}
     	
     	jTabelaOpinioes.setModel(new javax.swing.table.DefaultTableModel(
     			celulas,rotulos) {
-                Class[] types = new Class [] {
+                @SuppressWarnings("rawtypes")
+				Class[] types = new Class [] {
                     java.lang.String.class, java.lang.String.class
                 };
                 boolean[] canEdit = new boolean [] {
                     false, false
                 };
 
+            @SuppressWarnings({ "rawtypes", "unchecked" })
+			@Override
                 public Class getColumnClass(int columnIndex) {
                     return types [columnIndex];
                 }
 
+            @Override
                 public boolean isCellEditable(int rowIndex, int columnIndex) {
                     return canEdit [columnIndex];
                 }
@@ -342,23 +325,33 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
     col.setPreferredWidth(width);
         
     }
-    public void criaSugereCampina(SugereCampina sugere){
-        this.sugere = sugere;
-        porPopularidade = new AcoesBarraFerramentas(sugere, new JanelaGenerica());
-        porPerfil = new AcoesBarraFerramentas(sugere, new JanelaGenerica());
-        ranking = new AcoesBarraFerramentas(sugere, new JanelaGenerica());
-    }
-    public void povoaComboPerfis(){
-        
-    	Object[] perfisInterno =  sugere.getPerfis().toArray();
-    	Arrays.sort(perfisInterno);
-    	jComboPerfil.removeAllItems();
-        for (int i = 0; i < perfisInterno.length; i++) {
-        	jComboPerfil.addItem(perfisInterno[i].toString());
-		}    
-        
-        
 
+    public void criaSugere(Usuarios usuarios, Estabelecimentos estabilizamento){
+        
+        try {
+            popular = new SugerePopulares(usuarios, estabilizamento);
+        } catch (IOException ex) {
+            Mensagem.exibirMensagem(ex.getMessage());
+        }
+        try {
+            sugerePorPefil = new SugerePorPerfil(usuarios, estabilizamento);
+        } catch (IOException ex) {
+            Mensagem.exibirMensagem(ex.getMessage());
+        }
+        try {
+            sugere = new SugereCampina(usuarios, estabilizamento);
+        } catch (IOException ex) {
+            Mensagem.exibirMensagem(ex.getMessage());
+        }
+
+        porPopularidade = new AcoesBarraFerramentas(popular);
+        porPerfil = new AcoesBarraFerramentas(sugerePorPefil);
+        ranking = new AcoesBarraFerramentas(popular);
+        acoes = new AcoesEmJanelas(sugere);
+
+    }
+    public void montaComboPerfis(){
+    	acoes.montaComboPerfis(jComboPerfil);
     }
   
     
@@ -367,12 +360,14 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
             	janelaPrincipal = new SugereCampinaAplication();
                 janela1 = new JanelaArquivo(janelaPrincipal);
                 
                 janelaPrincipal.setVisible(true);
-                janelaPrincipal.setExtendedState(MAXIMIZED_BOTH);
+                //janelaPrincipal.setExtendedState(MAXIMIZED_BOTH);
+                CentralizaJanela.centralizaJanela(janelaPrincipal);
             }
         });
     }
@@ -393,6 +388,7 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
     private javax.swing.JButton jBTPorPerfil;
     private javax.swing.JButton jBtNovoPerfil;
     private javax.swing.JButton jBtRanking;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboPerfil;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -408,6 +404,9 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
     private AcoesBarraFerramentas porPerfil;
     private AcoesBarraFerramentas ranking;
     private SugereCampina sugere;
-    private JanelaNovoPerfil janelaNovoPerfil;
+    private SugerePopulares popular;
+    private SugerePorPerfil sugerePorPefil;
+    //private JanelaNovoPerfil janelaNovoPerfil;
+    private AcoesEmJanelas acoes;
     
 }

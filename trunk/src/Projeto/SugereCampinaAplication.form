@@ -14,10 +14,6 @@
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="Projeto.SugereCampinaAplication" id="abrirJanelaArquivo" methodName="abrirJanelaArquivo"/>
                 </Property>
-                <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Projeto/Icones/abrir.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Abrir arquivos"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="exitMenuItem">
@@ -71,13 +67,8 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="Ferramentas" min="-2" pref="1914" max="-2" attributes="0"/>
-                  <Component id="jPaienelDados" alignment="0" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="24" max="32767" attributes="0"/>
-          </Group>
+          <Component id="Ferramentas" alignment="0" pref="873" max="32767" attributes="1"/>
+          <Component id="jPaienelDados" alignment="0" max="32767" attributes="1"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -111,7 +102,7 @@
                       </Group>
                       <Component id="jScrollPane1" alignment="0" min="-2" pref="835" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="388" max="32767" attributes="0"/>
+                  <EmptySpace pref="28" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -249,6 +240,21 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBTPorPerfilActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton1">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Projeto/Icones/32/Cycle.png"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Mostra a percentagem de acerto dos metodos de sugest&#xf5;es"/>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="name" type="java.lang.String" value="jBCompara" noResource="true"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

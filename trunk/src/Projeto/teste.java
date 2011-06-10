@@ -16,8 +16,8 @@ public class teste {
 
 	private static TrataArquivoOpinioes teste1;
 	private static TrataArquivoEstabelecimento teste2;
-	private static SugereCampina sugere;
-	private static SugereCampina sugere2;
+	private static Sugere sugere;
+	private static Sugere sugere2;
 
 	public static void criaSugere() throws IOException {
 		Estabelecimentos esta = new Estabelecimentos(teste2);

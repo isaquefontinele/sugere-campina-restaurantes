@@ -14,13 +14,18 @@ import java.util.Formatter;
  * 
  * @author laerton
  */
-public class SugerePorPerfil extends SugereCampina {
-    /**
-     * Esta classe trata as pesquisa de sugestões de estabelecimentos por meio de comparações de perfis 
-     * @param usuarios Objeto do tipo Usuarios
-     * @param estabelecimentos Objeto do tipo Estabelecimentos
-     * @throws IOException Exception lançado pelos objetos Usuarios e Estabelecimentos
-     */
+public class SugerePorPerfil extends Sugere {
+	/**
+	 * Esta classe trata as pesquisa de sugestões de estabelecimentos por meio
+	 * de comparações de perfis
+	 * 
+	 * @param usuarios
+	 *            Objeto do tipo Usuarios
+	 * @param estabelecimentos
+	 *            Objeto do tipo Estabelecimentos
+	 * @throws IOException
+	 *             Exception lançado pelos objetos Usuarios e Estabelecimentos
+	 */
 	public SugerePorPerfil(Usuarios usuarios, Estabelecimentos estabelecimentos)
 			throws IOException {
 		super(usuarios, estabelecimentos);
@@ -31,12 +36,16 @@ public class SugerePorPerfil extends SugereCampina {
 		if (r < 0) {
 			throw new Exception("Nao deve ser informado numero negativo.");
 		}
+		
 		String[] semelhantes = super.usuariosSemelhantes(minhasNotas);
-        	if (!(Arrays.toString(minhasNotas).contains("0"))
+		System.out.println(Arrays.toString(semelhantes));
+		if (!(Arrays.toString(minhasNotas).contains("0"))
 				|| Integer.valueOf(semelhantes[0].split(":")[0]) <= 0) {
 			return null;
 		}
-        	ArrayList<String> recomendacoes = new ArrayList<String>();
+		
+		ArrayList<String> recomendacoes = new ArrayList<String>();
+		
 		String usuarioSemelhante;
 		int contador = 0;
 
@@ -77,8 +86,8 @@ public class SugerePorPerfil extends SugereCampina {
 			// Segunda verificacacao e para saber se o restaurante atual nao
 			// ja esta na lista
 			if ((minhasNotas[i] == 0 && notasUsuarioSemelhante[i] > 0)
-					&& (!(recomendacoes.toString()
-							.contains(super.listaEstabelecimentos().get(i))))) {
+					&& (!(recomendacoes.toString().contains(super
+							.listaEstabelecimentos().get(i))))) {
 				recomendacoesPorUsuario.add(notasUsuarioSemelhante[i]
 						+ ":"
 						+ super.getEstabelecimentos().getEstabelecimentos()

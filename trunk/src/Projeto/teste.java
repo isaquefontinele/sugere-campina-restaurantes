@@ -1,7 +1,14 @@
 package Projeto;
 
 
+
 import java.io.IOException;
+
+import Projeto.Algoritimos.Sugere;
+import Projeto.TratamentosArquivos.Estabelecimentos;
+import Projeto.TratamentosArquivos.TrataArquivoEstabelecimento;
+import Projeto.TratamentosArquivos.TrataArquivoOpinioes;
+import Projeto.TratamentosArquivos.Usuarios;
 
 
 //mport sun.misc.Sort;

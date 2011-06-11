@@ -9,13 +9,22 @@
  * Created on 25/05/2011, 00:24:58
  */
 
-package Projeto;
+package Projeto.Janelas;
 
 //import com.sun.xml.internal.ws.api.message.Message;
+
+//import Projeto.FiltroExtensionFileFilter;
 
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
+
+
+import Projeto.TratamentosArquivos.Estabelecimentos;
+import Projeto.TratamentosArquivos.TrataArquivoEstabelecimento;
+import Projeto.TratamentosArquivos.TrataArquivoOpinioes;
+import Projeto.TratamentosArquivos.Usuarios;
+import Projeto.acoes.Mensagem;
 
 /**
  *
@@ -50,7 +59,7 @@ public class JanelaArquivo extends javax.swing.JFrame {
     private String urlEstabeleciemnto;
     private String urlOpinioes;
     private JFileChooser janelaDeArquivos1;
-    private final static ExtensionFileFilter filter = new ExtensionFileFilter();
+    private final static FiltroArquivo filter = new FiltroArquivo();
     private Usuarios usuario;
     private Estabelecimentos estabelecimentos;
     private TrataArquivoOpinioes pesquisa;
@@ -125,7 +134,7 @@ public class JanelaArquivo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Selecao de arquivos");
-        
+        setIconImage(getIconImage());
         setIconImages(null);
 
         jLabel1.setText("Digite ou selecione a origem dos dados abaixo.");
@@ -227,7 +236,7 @@ public class JanelaArquivo extends javax.swing.JFrame {
             try {
 				conectaArquivos();
                                 //Linhas qua atualiza os dados na janela principal
-				janelaPrincipal.mostraPainelDados();
+				//janelaPrincipal.mostraPainelDados();
 				janelaPrincipal.montaComboPerfis();
 				setVisible(false);
 			} catch (IOException e) {

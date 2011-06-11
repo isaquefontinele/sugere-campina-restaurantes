@@ -140,7 +140,7 @@
         <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/Projeto/Icones/Spell.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Conectar"/>
+        <Property name="text" type="java.lang.String" value="Abrir"/>
         <Property name="name" type="java.lang.String" value="jBtConectar" noResource="true"/>
       </Properties>
       <Events>

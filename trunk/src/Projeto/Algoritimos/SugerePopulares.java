@@ -3,12 +3,17 @@
  * and open the template in the editor.
  */
 
-package Projeto;
+package Projeto.Algoritimos;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.Iterator;
+
+import Projeto.TratamentosArquivos.Estabelecimentos;
+import Projeto.TratamentosArquivos.Usuarios;
+import Projeto.acoes.Ordena;
 
 /**
  *

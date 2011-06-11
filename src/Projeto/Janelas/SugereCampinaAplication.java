@@ -9,7 +9,8 @@
  * Created on 25/05/2011, 00:24:41
  */
 
-package Projeto;
+package Projeto.Janelas;
+
 
 
 import java.io.IOException;
@@ -18,27 +19,37 @@ import java.util.logging.Logger;
 import javax.swing.table.TableColumn;
 import org.jdesktop.application.Action;
 
+import Projeto.Algoritimos.Sugere;
+import Projeto.Algoritimos.SugerePopulares;
+import Projeto.Algoritimos.SugerePorPerfil;
+import Projeto.TratamentosArquivos.Estabelecimentos;
+import Projeto.TratamentosArquivos.TrataArquivoEstabelecimento;
+import Projeto.TratamentosArquivos.TrataArquivoOpinioes;
+import Projeto.TratamentosArquivos.Usuarios;
+import Projeto.acoes.AcoesBarraFerramentas;
+import Projeto.acoes.AcoesEmJanelas;
+import Projeto.acoes.CentralizaJanela;
+import Projeto.acoes.Mensagem;
+
 /**
  * Contrutor do objeto SugereCampina Aplication - Este cria a janela principal da aplicação
  * @author Laerton, Isaque, ...
  */
 @SuppressWarnings("serial")
 public class SugereCampinaAplication extends javax.swing.JFrame {
+    private TrataArquivoOpinioes pesquisa;
+    private TrataArquivoEstabelecimento restaurante;
+    private Usuarios usuario;
+    private Estabelecimentos estabelecimentos;
 
     /** Creates new form SugereCampinaAplication */
-    public SugereCampinaAplication() {
+    public SugereCampinaAplication() throws IOException {
         initComponents();
         Ferramentas.setVisible(false);
         jPaienelDados.setVisible(false);
-        
-        
     }
 
-    public void mostraPainelDados(){
-    	Ferramentas.setVisible(true);
-    	jPaienelDados.setVisible(true);
-    	
-    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -56,12 +67,17 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
         jTabelaOpinioes = new javax.swing.JTable();
         Ferramentas = new javax.swing.JToolBar();
         jBtNovoPerfil = new javax.swing.JButton();
+        JBEstabelecimentos = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
         jBtRanking = new javax.swing.JButton();
         jBTPopular = new javax.swing.JButton();
         jBTPorPerfil = new javax.swing.JButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
         jButton1 = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
+        jMpadrão = new javax.swing.JMenuItem();
         openMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
@@ -129,7 +145,7 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
                         .addGap(3, 3, 3)
                         .addComponent(jComboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPaienelDadosLayout.setVerticalGroup(
             jPaienelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,6 +176,17 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
             }
         });
         Ferramentas.add(jBtNovoPerfil);
+
+        JBEstabelecimentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/32/home.png"))); // NOI18N
+        JBEstabelecimentos.setToolTipText("Exibe Informacões dos estabelecimentos");
+        JBEstabelecimentos.setFocusable(false);
+        JBEstabelecimentos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        JBEstabelecimentos.setName("JBEstabelecimentos"); // NOI18N
+        JBEstabelecimentos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        Ferramentas.add(JBEstabelecimentos);
+
+        jSeparator1.setName("jSeparator1"); // NOI18N
+        Ferramentas.add(jSeparator1);
 
         jBtRanking.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/32/charts03.png"))); // NOI18N
         jBtRanking.setToolTipText("Mostrar a classificação dos restaurantes");
@@ -194,6 +221,22 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
         });
         Ferramentas.add(jBTPorPerfil);
 
+        jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/32/filtro+.png"))); // NOI18N
+        jToggleButton1.setToolTipText("Ativa ou desativa os filtros nos sistemas de sugestões.");
+        jToggleButton1.setFocusable(false);
+        jToggleButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButton1.setName("jToggleButton1"); // NOI18N
+        jToggleButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
+        Ferramentas.add(jToggleButton1);
+
+        jSeparator2.setName("jSeparator2"); // NOI18N
+        Ferramentas.add(jSeparator2);
+
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/32/Cycle.png"))); // NOI18N
         jButton1.setToolTipText("Mostra a percentagem de acerto dos metodos de sugestões");
         jButton1.setFocusable(false);
@@ -209,8 +252,26 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
 
         fileMenu.setText("Arquivo");
 
+        jMpadrão.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/abrir.png"))); // NOI18N
+        jMpadrão.setToolTipText("Abrir sistema com dados padrões");
+        jMpadrão.setName("jMpadrão"); // NOI18N
+        jMpadrão.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMpadrãoActionPerformed(evt);
+            }
+        });
+        fileMenu.add(jMpadrão);
+
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(SugereCampinaAplication.class, this);
         openMenuItem.setAction(actionMap.get("abrirJanelaArquivo")); // NOI18N
+        openMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/abrir.png"))); // NOI18N
+        openMenuItem.setText("Arquivos dados");
+        openMenuItem.setToolTipText("Abre arquivos de dados indicado pelo cliente");
+        openMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openMenuItemActionPerformed(evt);
+            }
+        });
         fileMenu.add(openMenuItem);
 
         exitMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/sair.png"))); // NOI18N
@@ -237,8 +298,10 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Ferramentas, javax.swing.GroupLayout.DEFAULT_SIZE, 873, Short.MAX_VALUE)
-            .addComponent(jPaienelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Ferramentas, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPaienelDados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,6 +351,29 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         porPerfil.abriComparacoes();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jMpadrãoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMpadrãoActionPerformed
+        try {
+            conectarDados();
+        } catch (IOException ex) {
+            Mensagem.exibirMensagem(ex.getMessage());
+        }
+    }//GEN-LAST:event_jMpadrãoActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+            
+            if (filtroAtivo == false){
+                jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/32/filtroX.png")));
+                filtroAtivo = true;
+            }else{
+                jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/32/filtro+.png")));
+                filtroAtivo = false;
+            }
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
+        janela1.setVisible(true);
+    }//GEN-LAST:event_openMenuItemActionPerformed
     
     public void montaTabela (String usuario ) throws Exception{
 
@@ -353,9 +439,27 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
     }
     public void montaComboPerfis(){
     	acoes.montaComboPerfis(jComboPerfil);
+        Ferramentas.setVisible(true);
+        jPaienelDados.setVisible(true);
     }
   
-    
+    private  void conectarDados() throws IOException {
+        try {
+            pesquisa = new TrataArquivoOpinioes("opinioes-dos-usuarios-v2.data" );
+        } catch (IOException ex) {
+            Mensagem.exibirMensagem(ex.getMessage());
+        }
+        try {
+            restaurante = new TrataArquivoEstabelecimento("lista_estabelecimentos_projeto_lp2-v2.data");
+        } catch (IOException ex) {
+            Mensagem.exibirMensagem(ex.getMessage());
+        }
+		usuario = new Usuarios(pesquisa.recolheDados());
+                estabelecimentos = new Estabelecimentos(restaurante);
+                criaSugere(usuario, estabelecimentos);
+                montaComboPerfis();
+
+    }
     /**
     * @param args the command line arguments
     */
@@ -363,7 +467,11 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-            	janelaPrincipal = new SugereCampinaAplication();
+                try {
+                    janelaPrincipal = new SugereCampinaAplication();
+                } catch (IOException ex) {
+                    Mensagem.exibirMensagem(ex.getMessage());
+                }
                 janela1 = new JanelaArquivo(janelaPrincipal);
                 
                 janelaPrincipal.setVisible(true);
@@ -381,6 +489,7 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToolBar Ferramentas;
+    private javax.swing.JButton JBEstabelecimentos;
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
@@ -393,9 +502,13 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboPerfil;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenuItem jMpadrão;
     private javax.swing.JPanel jPaienelDados;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JTable jTabelaOpinioes;
+    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     // End of variables declaration//GEN-END:variables
@@ -409,5 +522,6 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
     private SugerePorPerfil sugerePorPefil;
     //private JanelaNovoPerfil janelaNovoPerfil;
     private AcoesEmJanelas acoes;
+    private boolean filtroAtivo = false;
     
 }

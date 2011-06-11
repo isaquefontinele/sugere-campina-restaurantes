@@ -1,7 +1,11 @@
-package Projeto;
+package Projeto.Algoritimos;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import Projeto.TratamentosArquivos.Estabelecimentos;
+import Projeto.TratamentosArquivos.Usuarios;
 
 /**
  * Classe com os algoritmos de recomendações
@@ -24,12 +28,16 @@ public class Sugere {
 	 * @throws IOException
 	 *             - Arquivo inválido
 	 */
+	
 	public Sugere(Usuarios usuarios, Estabelecimentos estabelecimentos)
 			throws IOException {
 
 		this.usuarios = usuarios;
 		this.estabelecimentos = estabelecimentos;
 
+	}
+	protected int getNumeroDeNotasUsuarios(String usuario) {
+		return usuarios.numeroNotas(usuario);
 	}
         /**
          * 
@@ -55,7 +63,7 @@ public class Sugere {
          * @throws Exception 
          */
 
-	public String[] usuariosSemelhantes(Integer[] notas) throws Exception {
+	public ArrayList<String> usuariosSemelhantes(Integer[] notas) throws Exception {
 		return usuarios.usuariosSemelhantes(notas);
 	}
         /**
@@ -64,10 +72,6 @@ public class Sugere {
          * @return
          * @throws Exception 
          */
-
-	public String[] usuariosSemelhantes(String usuario) throws Exception {
-		return usuarios.usuariosSemelhantes(usuario);
-	}
 
 	public Integer[] notasUsuario(String usuario) {
 		return usuarios.notasUsuario(usuario);

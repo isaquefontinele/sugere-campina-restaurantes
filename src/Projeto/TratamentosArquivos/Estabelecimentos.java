@@ -3,7 +3,10 @@
  * and open the template in the editor.
  */
 
-package Projeto;
+package Projeto.TratamentosArquivos;
+
+import Projeto.TratamentosArquivos.TrataArquivoEstabelecimento;
+import Projeto.acoes.Mensagem;
 
 import java.io.IOException;
 import java.util.ArrayList;

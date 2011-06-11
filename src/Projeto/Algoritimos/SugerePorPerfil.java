@@ -3,12 +3,19 @@
  * and open the template in the editor.
  */
 
-package Projeto;
+package Projeto.Algoritimos;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Formatter;
+import java.util.Iterator;
+
+import Projeto.TratamentosArquivos.Estabelecimentos;
+import Projeto.TratamentosArquivos.Usuarios;
+import Projeto.acoes.Mensagem;
+import Projeto.acoes.Ordena;
 
 /**
  * 
@@ -36,41 +43,50 @@ public class SugerePorPerfil extends Sugere {
 		if (r < 0) {
 			throw new Exception("Nao deve ser informado numero negativo.");
 		}
-		
-		String[] semelhantes = super.usuariosSemelhantes(minhasNotas);
-		System.out.println(Arrays.toString(semelhantes));
-		if (!(Arrays.toString(minhasNotas).contains("0"))
-				|| Integer.valueOf(semelhantes[0].split(":")[0]) <= 0) {
+
+		ArrayList<String> semelhantes = super.usuariosSemelhantes(minhasNotas);
+
+		if (semelhantes.size() != 0) {
+			if (!(Arrays.toString(minhasNotas).contains("0"))
+					|| Integer.valueOf(semelhantes.get(0).split(":")[0]) <= 0) {
+				return null;
+			}
+		} else {
 			return null;
 		}
-		
-		ArrayList<String> recomendacoes = new ArrayList<String>();
-		
+
+		ArrayList<String> recomendacoesInternas = new ArrayList<String>();
+		ArrayList<String> temporario = null;
 		String usuarioSemelhante;
-		int contador = 0;
+		int faltam = r, qTemporario, qRecomenda;
 
-		do {
-			usuarioSemelhante = semelhantes[contador].split(":")[1];
-
+		Iterator<String> it = (Iterator<String>) semelhantes.iterator();
+		while (it.hasNext()) {
+			usuarioSemelhante = it.next().split(":")[1];
 			Integer[] notasUsuarioSemelhante = super
 					.notasUsuario(usuarioSemelhante);
-			recomendacoes.addAll(comparacaoDeNotasEAdiciona(minhasNotas,
-					notasUsuarioSemelhante, recomendacoes, usuarioSemelhante));
-			contador += 1;
+			temporario = comparacaoDeNotasEAdiciona(minhasNotas,
+					notasUsuarioSemelhante, recomendacoesInternas,
+					usuarioSemelhante);
 
-		} while ((recomendacoes.size() < r) && (contador < semelhantes.length)
-				&& (Integer.valueOf(semelhantes[contador].split(":")[0]) > 0));
+			qTemporario = temporario.size();
+			if (faltam < qTemporario) {
+				for (int i = 0; i < qTemporario - faltam; i++) {
 
-		String[] recomendacoesAuxiliar = recomendacoes.toString()
-				.replace("[", "").replace("]", "").split(",");
-		contador = 0;
-		if (r < recomendacoesAuxiliar.length) {
-			String[] recomendacoesDefinitivas = new String[r];
-			for (int i = 0; i < r; ++i) {
-				recomendacoesDefinitivas[i] = recomendacoesAuxiliar[i];
+					temporario.remove(qTemporario - (i + 1));
+				}
 			}
-			return recomendacoesDefinitivas;
+			recomendacoesInternas.addAll(temporario);
+			qRecomenda = recomendacoesInternas.size();
+			faltam = r - qRecomenda;
+
+			if (qRecomenda == r) {
+				break;
+			}
+
 		}
+		String[] recomendacoesAuxiliar = recomendacoesInternas.toString()
+				.replace("[", "").replace("]", "").split(",");
 
 		return recomendacoesAuxiliar;
 	}
@@ -78,21 +94,27 @@ public class SugerePorPerfil extends Sugere {
 	private ArrayList<String> comparacaoDeNotasEAdiciona(Integer[] minhasNotas,
 			Integer[] notasUsuarioSemelhante, ArrayList<String> recomendacoes,
 			String usuarioSemelhante) {
-		ArrayList<String> recomendacoesPorUsuario = new ArrayList<String>();
-		// recomendacoesPorUsuario.clear();
-		for (int i = 0; i < minhasNotas.length; i++) {
-			// Confere se a nota do restaurante n para usuario atual e zero
-			// e para o semelhante e positiva
-			// Segunda verificacacao e para saber se o restaurante atual nao
-			// ja esta na lista
-			if ((minhasNotas[i] == 0 && notasUsuarioSemelhante[i] > 0)
-					&& (!(recomendacoes.toString().contains(super
-							.listaEstabelecimentos().get(i))))) {
-				recomendacoesPorUsuario.add(notasUsuarioSemelhante[i]
-						+ ":"
-						+ super.getEstabelecimentos().getEstabelecimentos()
-								.get(i) + ":" + usuarioSemelhante);
 
+		ArrayList<String> recomendacoesPorUsuario = new ArrayList<String>();
+
+		for (int i = 0; i < minhasNotas.length; i++) {
+			// if ((minhasNotas[i] == 0 && notasUsuarioSemelhante[i] > 0)
+			// && (!(recomendacoes.toString().contains(super
+			// .listaEstabelecimentos().get(i))))) {
+			// recomendacoesPorUsuario.add(notasUsuarioSemelhante[i]
+			// + ":"
+			// + super.listaEstabelecimentos().get(i) + ":" +
+			// usuarioSemelhante);
+			// }
+			if (minhasNotas[i] == 0) {
+				if (notasUsuarioSemelhante[i] > 0) {
+					if (!(recomendacoes.toString().contains(super
+							.listaEstabelecimentos().get(i)))) {
+						recomendacoesPorUsuario.add(notasUsuarioSemelhante[i]
+								+ ":" + super.listaEstabelecimentos().get(i)
+								+ ":" + usuarioSemelhante);
+					}
+				}
 			}
 		}
 		if (recomendacoesPorUsuario.size() > 0) {
@@ -119,16 +141,19 @@ public class SugerePorPerfil extends Sugere {
 	public String[] recomendacoes(Integer[] minhasNotas, int r)
 			throws Exception {
 		String[] recomendacoesInternas = geraRecomendacoes(minhasNotas, r);
+
 		if (recomendacoesInternas != null) {
 			for (int i = 0; i < recomendacoesInternas.length; i++) {
 				StringBuilder linha = new StringBuilder();
 				Formatter fm = new Formatter(linha);
-				fm.format("%3d° lugar -  %s", (i + 1),
+				fm.format("%3d° lugar -  %s ", (i + 1),
 						recomendacoesInternas[i].split(":")[1]);
+						
 				recomendacoesInternas[i] = linha.toString();
 
 			}
 		}
+
 		return recomendacoesInternas;
 	}
 

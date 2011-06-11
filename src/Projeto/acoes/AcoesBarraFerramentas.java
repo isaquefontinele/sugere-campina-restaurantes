@@ -1,5 +1,8 @@
 
-package Projeto;
+package Projeto.acoes;
+
+import Projeto.Algoritimos.Sugere;
+import Projeto.Janelas.JanelaGenerica;
 
 
 
@@ -90,8 +93,13 @@ public class AcoesBarraFerramentas extends AcoesEmJanelas {
             String resposta = mensagemIndicacoes();
 		if (resposta != null) {
 			try {
-				String[] retorno = super.getPorPerfil(usuario,
-						Integer.valueOf(resposta));
+				int novoNumeroDeRecomendacoes =  super.getNumeroDeNotas(usuario);
+				int r = Integer.valueOf(resposta);
+				
+				if (r > novoNumeroDeRecomendacoes){
+					r = novoNumeroDeRecomendacoes;
+				}
+				String[] retorno = super.getPorPerfil(usuario,r);
 							if (retorno !=null){
                         	if (retorno.length < Integer.valueOf(resposta)) {
 					Mensagem.exibirMensagem("Das " + resposta

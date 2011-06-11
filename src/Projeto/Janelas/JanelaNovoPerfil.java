@@ -9,11 +9,22 @@
  * Created on 28/05/2011, 20:58:04
  */
 
-package Projeto;
+package Projeto.Janelas;
+
 
 import java.io.IOException;
 import java.util.Arrays;
 import javax.swing.table.TableColumn;
+
+import Projeto.Algoritimos.Sugere;
+import Projeto.Algoritimos.SugerePopulares;
+import Projeto.Algoritimos.SugerePorPerfil;
+import Projeto.TratamentosArquivos.Estabelecimentos;
+import Projeto.TratamentosArquivos.Usuarios;
+import Projeto.acoes.AcoesBarraFerramentas;
+import Projeto.acoes.AcoesEmJanelas;
+import Projeto.acoes.DataHora;
+import Projeto.acoes.Mensagem;
 
 /**
  * 

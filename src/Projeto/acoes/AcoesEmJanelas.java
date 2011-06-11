@@ -3,7 +3,16 @@
  * and open the template in the editor.
  */
 
-package Projeto;
+package Projeto.acoes;
+
+import Projeto.Algoritimos.Sugere;
+import Projeto.Algoritimos.SugerePopulares;
+import Projeto.Algoritimos.SugerePorPerfil;
+import Projeto.Janelas.JanelaArquivo;
+import Projeto.Janelas.JanelaBarra;
+import Projeto.Janelas.JanelaNovoPerfil;
+import Projeto.TratamentosArquivos.Estabelecimentos;
+import Projeto.TratamentosArquivos.Usuarios;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,6 +32,9 @@ public class AcoesEmJanelas implements Runnable {
 	private SugerePopulares populares;
 	private SugerePorPerfil porPerfil;
 	private Integer[] notaRemovida = new Integer[2];
+        private AcoesEmJanelas metodo ;
+        private Thread thered ;
+        private JanelaBarra janelaBarra ;
 
 	/**
 	 * Classe que cuida de metodos especificos das janelas do programa
@@ -107,7 +119,7 @@ public class AcoesEmJanelas implements Runnable {
 	public String[] getPorPerfil(String usuario, Integer quantidade)
 			throws Exception {
 		Integer[] notas = notasUsuario(usuario);
-		
+
 		return porPerfil.recomendacoes(notas, quantidade);
 	}
 
@@ -220,6 +232,14 @@ public class AcoesEmJanelas implements Runnable {
 
 	}
 
+	protected int getNumeroDeNotas(String usuario) {
+		return usuarios.numeroNotas(usuario);
+	}
+
+	protected int getNumeroEstabelecimentos() {
+		return estabelecimentos.getEstabelecimentos().size();
+	}
+
 	/**
 	 * Este metodo povoa um combobox com a lista de perfis existente
 	 * 
@@ -251,9 +271,10 @@ public class AcoesEmJanelas implements Runnable {
 		return notas;
 	}
 
-	private boolean contemEmPopulares(String estabelecimento, Integer quantidade, String[] listaPopular){
-		for (int i = 0; i < quantidade; i++){
-			if (listaPopular[i].contains(estabelecimento)){
+	private boolean contemEmPopulares(String estabelecimento,
+			Integer quantidade, String[] listaPopular) {
+		for (int i = 0; i < quantidade; i++) {
+			if (listaPopular[i].contains(estabelecimento)) {
 				return true;
 			}
 		}
@@ -262,18 +283,11 @@ public class AcoesEmJanelas implements Runnable {
 
 	private boolean contemEmPorPerfil(String estabelecimento,
 			Integer quantidade, Integer[] notas) throws Exception {
-                String[] listaRecomendacoes = porPerfil.recomendacoes(notas, quantidade);
-                if (listaRecomendacoes !=null ){
-                	for (int i = 0; i < listaRecomendacoes.length; i++ ){
-                		if (listaRecomendacoes[i].contains(estabelecimento)){
-                			return true;
-                		}
-                	}
-                }
-//		if (Arrays.toString(porPerfil.recomendacoes(notas, quantidade))
-//				.contains(estabelecimento)) {
-//			return true;
-//		}
+		String[] listaRecomendacoes = porPerfil
+				.recomendacoes(notas, quantidade);
+		if (Arrays.toString(listaRecomendacoes).contains(estabelecimento)){
+			return true;
+		}
 		return false;
 	}
 
@@ -285,43 +299,58 @@ public class AcoesEmJanelas implements Runnable {
 		String estabelecimento = null;
 		Double contadorPerfil = 0.0, contadorPopular = 0.0, contador = 0.0;
 		ArrayList<String> listaEstabelecimetos = estabelecimentos
-		.getEstabelecimentos();
+				.getEstabelecimentos();
 		String[] listaPopulares = populares.maisPopulares(listaEstabelecimetos.size());
-		
+
 		@SuppressWarnings("unchecked")
 		Set<String> conjuntoUsuarios = usuarios.getUsuarios();
 
-		JanelaBarra janelaBarra = new JanelaBarra();
+		janelaBarra = new JanelaBarra();
 		janelaBarra.setValorMaximoBarra(conjuntoUsuarios.size());
 		janelaBarra.setValorPosicao(0);
 		janelaBarra.setVisible(true);
 		CentralizaJanela.centralizaJanela(janelaBarra);
-		
+
 		Iterator<String> it = conjuntoUsuarios.iterator();
+
+		int r, novoNumeroDeRecomendacoes;
+
 		while (it.hasNext()) {
 			String nomeUsuario = it.next();
-			Integer[] notas = notasUsuario(nomeUsuario);
-			janelaBarra.setValorPosicao(janelaBarra.getValorPosicao() + 1);
-			janelaBarra.setjLabel1("Este processo é um pouco demorado, por favor aguarde...\nAnalisando o perfil: " + nomeUsuario);
-			for (int i = 0; i < notas.length; i++) {
-
-				if (notas[i] > 0) {
-					estabelecimento = listaEstabelecimetos.get(i);
-					contador += 1;
-					notas = removeNota(i, notas);
-					contadorPopular += (contemEmPopulares(estabelecimento,
-							quantidade, listaPopulares)) ? 1 : 0;
-					contadorPerfil += (contemEmPorPerfil(estabelecimento,
-							quantidade, notas)) ? 1 : 0;
-					notas = retornaNota(notas);
-				}
+			novoNumeroDeRecomendacoes = getNumeroDeNotas(nomeUsuario);
+                        r = quantidade;
+			if (r > novoNumeroDeRecomendacoes) {
+				r = novoNumeroDeRecomendacoes;
 			}
-		}
+			
+                        janelaBarra.setValorPosicao(janelaBarra.getValorPosicao() + 1);
+			janelaBarra.setjLabel("Analisando o perfil: "
+							+ nomeUsuario);
+			
+			if (r!=0){
+				Integer[] notas = notasUsuario(nomeUsuario);			
+                                for (int i = 0; i < notas.length; i++) {
+					if (notas[i] > 0) {
+						estabelecimento = listaEstabelecimetos.get(i);
+						contador += 1;
+						notas = removeNota(i, notas);
+						contadorPopular += (contemEmPopulares(estabelecimento,
+								quantidade, listaPopulares)) ? 1 : 0;
+						
+						contadorPerfil += (contemEmPorPerfil(estabelecimento,
+								r, notas)) ? 1 : 0;
+						
+						notas = retornaNota(notas);
+					}
+				}
+                        }
+                }
+		
 		janelaBarra.dispose();
 		return "Apos a analise conclui-se que para uma pesquisa de "
 				+ quantidade
 				+ ((quantidade == 1) ? " opininão " : " opininões ")
-				+ "obtevi:" + "\nPor popularidade: "
+				+ "o resultado foi:" + "\nPor popularidade: "
 				+ ((contadorPopular * 100) / contador) + "% de acertos.\n"
 				+ "Por perfil: " + ((contadorPerfil * 100) / contador)
 				+ "% de acertos";
@@ -341,8 +370,10 @@ public class AcoesEmJanelas implements Runnable {
 	}
 
 	protected void threadComparaRecomendacoes() {
-		AcoesEmJanelas metodo = new AcoesEmJanelas(sugere);
-		Thread thered = new Thread(metodo);
+		
+                metodo = new AcoesEmJanelas(sugere);
+		thered = new Thread(metodo);
 		thered.start();
 	}
+        
 }

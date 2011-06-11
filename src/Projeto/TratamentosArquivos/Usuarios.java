@@ -3,15 +3,19 @@
  * and open the template in the editor.
  */
 
-package Projeto;
+package Projeto.TratamentosArquivos;
+
 
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+
+import Projeto.acoes.Ordena;
 
 /**
  * Está classe trata das informações de cada usuário alimentado pelo mapa em seu
@@ -22,6 +26,7 @@ import java.util.Set;
 public class Usuarios {
 	private Map<String, String[]> opinioes;
 	private Map<String, Integer[]> opinioesInteiros;
+	private Map<String, Integer> notasPositivas;
 
 	/**
 	 * Este metodo cria um objeto do tipo usuários.
@@ -32,20 +37,35 @@ public class Usuarios {
 	 */
 	public Usuarios(Map<String, String[]> opinioes) {
 		this.opinioes = opinioes;
+		criaOpinioesInteiros();
+	}
+	
+	
+	private void criaOpinioesInteiros(){
 		opinioesInteiros = new  HashMap();
+		notasPositivas = new  HashMap();
 		Iterator<String> it = (Iterator) this.opinioes.keySet().iterator();
+		int nota;
 		String user;
 		while(it.hasNext()){
 			user = it.next();
+			int contaNotaPositiva = 0;
 			String[] minhasOpinioes = opinioes.get(user);
-			Integer[] minhasNotasInteiros = new Integer[minhasOpinioes.length -2];
+		 	Integer[] minhasNotasInteiros = new Integer[minhasOpinioes.length -2];
 			for (int i = 2; i < minhasOpinioes.length; i++) {
-				minhasNotasInteiros[i-2] = Integer.valueOf((minhasOpinioes[i].split(":")[0].replace(" ", "")));
+				nota = Integer.valueOf((minhasOpinioes[i].split(":")[0].replace(" ", "")));
+				minhasNotasInteiros[i-2] = nota;
+				
+				if (nota == 0){
+					contaNotaPositiva +=1;
+				}
 			}
-			opinioesInteiros.put(user, minhasNotasInteiros);
 			
+			notasPositivas.put(user, contaNotaPositiva);
+			opinioesInteiros.put(user, minhasNotasInteiros);
 		}
-	}
+		
+	} 
 
 	/**
 	 * Pega os nomes dos usuários
@@ -61,13 +81,9 @@ public class Usuarios {
 	 * 
 	 * @return Retorna um inteiro >= 0
 	 */
-	public int numeroNotas() {
-		if ((getUsuarios().toArray()).length > 0) {
-			@SuppressWarnings("element-type-mismatch")
-			String[] linha = opinioes.get((getUsuarios().toArray())[0]);
-			return (linha.length - 2);
-		}
-		return 0;
+	public int numeroNotas(String usuario) {
+		
+		return notasPositivas.get(usuario);
 	}
 
 	/**
@@ -82,13 +98,6 @@ public class Usuarios {
 	 */
 
 	public Integer[] notasUsuario(String usuario) {
-//		Integer[] notas = new Integer[numeroNotas()];
-//		String[] linhaLeitura = (String[]) opinioes.get(usuario);
-//		for (int i = 2; i < linhaLeitura.length; ++i) {
-//			String nota = (linhaLeitura[i].split(":")[0].replace(" ", ""));
-//			notas[i - 2] = Integer.valueOf(nota);
-//		}
-		//System.out.println(Arrays.toString(opinioesInteiros.get(usuario)));
 		return opinioesInteiros.get(usuario);
 	}
 
@@ -104,48 +113,6 @@ public class Usuarios {
 	}
 
 	/**
-	 * Metodo cria uma Arry de string contendo em ordem decrescente os nomes dos
-	 * perfis mais semelhantes ao do usuario informado
-	 * 
-	 * @param usuario
-	 *            Nome do usuário para comparação
-	 * @return Array de String
-	 * @throws Exception
-	 *             Não é permitido usuarios null ou em branco.
-	 */
-	public String[] usuariosSemelhantes(String usuario) throws Exception {
-		if (usuario == null) {
-			throw new Exception("Não pode ser informado usuario null.");
-		}
-		if (usuario.equals("")) {
-			throw new Exception("Não pode ser informado usuario ''.");
-		}
-		
-		String[] usuariosSemelhantes = new String[opinioes.size() - 1];
-		Integer[] minhasNotas = notasUsuario(usuario);
-		
-		int contador = 0;
-		Iterator usuarios = opinioes.keySet().iterator();
-
-		while (usuarios.hasNext()) {
-			int soma = 0;
-			String outroUsuario = (String) usuarios.next();
-			if (outroUsuario.equals(usuario))
-				continue;
-			Integer[] notasOutroUsuario = notasUsuario(outroUsuario);
-
-			for (int i = 2; i < notasUsuario(usuario).length; ++i) {
-				soma += minhasNotas[i - 2] * notasOutroUsuario[i - 2];
-			}
-
-			usuariosSemelhantes[contador] = soma + ":" + outroUsuario;
-			contador += 1;
-		}
-		Ordena.bubbleSortDec(usuariosSemelhantes);
-		return usuariosSemelhantes;
-	}
-
-	/**
 	 * Metodo cria uma Array de string contendo em ordem decrescente os nomes
 	 * dos perfis mais semelhantes as notas informadas
 	 * 
@@ -155,33 +122,29 @@ public class Usuarios {
 	 * @throws Exception
 	 *             Não é permitido lista vazia ou null.
 	 */
-
-	public String[] usuariosSemelhantes(Integer[] minhasNotas) throws Exception {
+	public ArrayList<String> usuariosSemelhantes(Integer[] minhasNotas) throws Exception {
 		if (minhasNotas == null) {
 			throw new Exception("Não é permitido notas null.");
 		}
-
 		if (minhasNotas.length == 0) {
 			throw new Exception("Não é permitido lista vazia.");
 		}
-		String[] usuariosSemelhantes = new String[opinioes.size()];
-
-		int contador = 0;
+		ArrayList<String> usuariosSemelhantes = new ArrayList<String>();
 		Iterator usuarios = opinioes.keySet().iterator();
-
 		while (usuarios.hasNext()) {
 			int soma = 0;
 			String outroUsuario = (String) usuarios.next();
 			Integer[] notasOutroUsuario = notasUsuario(outroUsuario);
-
-			for (int i = 2; i < minhasNotas.length; ++i) {
-				soma += minhasNotas[i - 2] * notasOutroUsuario[i - 2];
+			for (int i = 0; i < minhasNotas.length; ++i) {
+				soma += minhasNotas[i] * notasOutroUsuario[i];
 			}
-
-			usuariosSemelhantes[contador] = soma + ":" + outroUsuario;
-			contador += 1;
+			if (soma > 0 ){
+				usuariosSemelhantes.add(soma + ":" + outroUsuario);
+			}
 		}
-		Ordena.bubbleSortDec(usuariosSemelhantes);
+		if (usuariosSemelhantes.size()> 0){
+			Ordena.bubbleSortDec(usuariosSemelhantes);
+		}
 		return usuariosSemelhantes;
 	}
 

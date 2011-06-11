@@ -5,12 +5,23 @@
 
 package Projeto;
 
+import java.io.IOException;
+
+import Projeto.Janelas.SugereCampinaAplication;
+import Projeto.acoes.CentralizaJanela;
+
+
+
 /**
  *
  * @author laerton
  */
 public class Run {
-	public Run (){
-		
+    private static SugereCampinaAplication programa;
+	
+	public static void main(String[] args) throws IOException {
+		programa = new SugereCampinaAplication();
+		programa.setVisible(true);
+                CentralizaJanela.centralizaJanela(programa);
 	}
 }

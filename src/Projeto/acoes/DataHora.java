@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package Projeto;
+package Projeto.acoes;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

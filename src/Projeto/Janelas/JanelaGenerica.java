@@ -9,7 +9,7 @@
  * Created on 28/05/2011, 11:15:40
  */
 
-package Projeto;
+package Projeto.Janelas;
 
 /**
  *

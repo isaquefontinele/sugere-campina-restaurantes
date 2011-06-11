@@ -1,4 +1,4 @@
-package Projeto;
+package Projeto.TratamentosArquivos;
 
 import java.io.BufferedReader;
 import java.io.IOException;

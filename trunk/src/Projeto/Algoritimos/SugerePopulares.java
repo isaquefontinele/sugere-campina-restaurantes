@@ -1,15 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Projeto.Algoritimos;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.Iterator;
-
 import Projeto.TratamentosArquivos.Estabelecimentos;
 import Projeto.TratamentosArquivos.Usuarios;
 import Projeto.acoes.Ordena;
@@ -85,28 +79,12 @@ public class SugerePopulares extends Sugere {
 	public String[] maisPopulares(int numeroRecomendacoes) throws Exception {
 		String[] lista = mostraNotasGlobais();
 		String[] retorno = new String[numeroRecomendacoes];
-		int contador = 0;
-		String estabelecimentoAtual;
-
 		for (int i = 0; i < numeroRecomendacoes; i++) {
 			StringBuilder linha = new StringBuilder();
 			Formatter fm = new Formatter(linha);
-			estabelecimentoAtual = lista[i].split(":")[1].replaceFirst(" ", "");
-
-			if (super.getFiltroAtivo()) {
-				if ((super.contemEstabecimento(estabelecimentoAtual))) {
-					contador += 1;
-					fm.format("%3d° lugar -  %s", (contador),
-							estabelecimentoAtual);
-					retorno[contador-1] = linha.toString();
-				}
-			} else {
-				fm.format("%3d° lugar -  %s", (i + 1), estabelecimentoAtual);
-				retorno[i] = linha.toString();
-			}
-
+			fm.format("%3d° lugar -  %s", (i + 1), lista[i].split(":")[1]);
+			retorno[i] = linha.toString();
 		}
-		
 		return retorno;
 	}
 

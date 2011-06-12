@@ -47,6 +47,7 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
         initComponents();
         Ferramentas.setVisible(false);
         jPaienelDados.setVisible(false);
+        janela1 = new JanelaArquivo(janelaPrincipal);
     }
 
 
@@ -72,7 +73,7 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
         jBtRanking = new javax.swing.JButton();
         jBTPopular = new javax.swing.JButton();
         jBTPorPerfil = new javax.swing.JButton();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        jTBFiltro = new javax.swing.JToggleButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         jButton1 = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
@@ -221,18 +222,18 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
         });
         Ferramentas.add(jBTPorPerfil);
 
-        jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/32/filtro+.png"))); // NOI18N
-        jToggleButton1.setToolTipText("Ativa ou desativa os filtros nos sistemas de sugestões.");
-        jToggleButton1.setFocusable(false);
-        jToggleButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jToggleButton1.setName("jToggleButton1"); // NOI18N
-        jToggleButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        jTBFiltro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/32/filtroX.png"))); // NOI18N
+        jTBFiltro.setToolTipText("Ativa ou desativa os filtros nos sistemas de sugestões.");
+        jTBFiltro.setFocusable(false);
+        jTBFiltro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jTBFiltro.setName("jTBFiltro"); // NOI18N
+        jTBFiltro.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jTBFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                jTBFiltroActionPerformed(evt);
             }
         });
-        Ferramentas.add(jToggleButton1);
+        Ferramentas.add(jTBFiltro);
 
         jSeparator2.setName("jSeparator2"); // NOI18N
         Ferramentas.add(jSeparator2);
@@ -253,6 +254,7 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
         fileMenu.setText("Arquivo");
 
         jMpadrão.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/abrir.png"))); // NOI18N
+        jMpadrão.setText("Dados padrões");
         jMpadrão.setToolTipText("Abrir sistema com dados padrões");
         jMpadrão.setName("jMpadrão"); // NOI18N
         jMpadrão.addActionListener(new java.awt.event.ActionListener() {
@@ -264,9 +266,6 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(SugereCampinaAplication.class, this);
         openMenuItem.setAction(actionMap.get("abrirJanelaArquivo")); // NOI18N
-        openMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/abrir.png"))); // NOI18N
-        openMenuItem.setText("Arquivos dados");
-        openMenuItem.setToolTipText("Abre arquivos de dados indicado pelo cliente");
         openMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 openMenuItemActionPerformed(evt);
@@ -336,12 +335,25 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
         ranking.abrirJanelaRanking();
     }//GEN-LAST:event_jBtRankingActionPerformed
 
-	private void jBTPopularActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBTPopularActionPerformed
-		porPopularidade.abrirJanelaPorPopularidade();
-	}
+    private void jBTPopularActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBTPopularActionPerformed
+		if (filtroAtivo == true ){
+                    porPopularidade = new AcoesBarraFerramentas(popular, janelaFiltro.getListaDeFiltros());
+                    
+                }else{
+                    porPopularidade = new AcoesBarraFerramentas(popular);
+                }
+                porPopularidade.abrirJanelaPorPopularidade();
+                
+
+    }
 
     private void jBTPorPerfilActionPerformed(java.awt.event.ActionEvent evt) {                                             
-    	porPerfil.abrirJanelaPorPerfilActionPerformed(jComboPerfil.getSelectedItem().toString());
+    	if (filtroAtivo == true ){
+                    porPerfil = new AcoesBarraFerramentas(sugerePorPefil, janelaFiltro.getListaDeFiltros());
+        }else{
+                    porPerfil = new AcoesBarraFerramentas(sugerePorPefil);
+        }
+       porPerfil.abrirJanelaPorPerfilActionPerformed(jComboPerfil.getSelectedItem().toString());
     }
 
     private void jBtNovoPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoPerfilActionPerformed
@@ -360,16 +372,18 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMpadrãoActionPerformed
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+    private void jTBFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTBFiltroActionPerformed
             
             if (filtroAtivo == false){
-                jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/32/filtroX.png")));
+                jTBFiltro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/32/filtro+.png")));
                 filtroAtivo = true;
+                janelaFiltro.setVisible(true);
+                CentralizaJanela.centralizaJanela(janelaFiltro);
             }else{
-                jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/32/filtro+.png")));
+                jTBFiltro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/32/filtroX.png")));
                 filtroAtivo = false;
             }
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
+    }//GEN-LAST:event_jTBFiltroActionPerformed
 
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
         janela1.setVisible(true);
@@ -431,7 +445,7 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
             Mensagem.exibirMensagem(ex.getMessage());
         }
 
-        porPopularidade = new AcoesBarraFerramentas(popular);
+        //porPopularidade = new AcoesBarraFerramentas(popular);
         porPerfil = new AcoesBarraFerramentas(sugerePorPefil);
         ranking = new AcoesBarraFerramentas(popular);
         acoes = new AcoesEmJanelas(sugere);
@@ -472,7 +486,7 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
                 } catch (IOException ex) {
                     Mensagem.exibirMensagem(ex.getMessage());
                 }
-                janela1 = new JanelaArquivo(janelaPrincipal);
+                
                 
                 janelaPrincipal.setVisible(true);
                 //janelaPrincipal.setExtendedState(MAXIMIZED_BOTH);
@@ -507,8 +521,8 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
+    private javax.swing.JToggleButton jTBFiltro;
     private javax.swing.JTable jTabelaOpinioes;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     // End of variables declaration//GEN-END:variables
@@ -523,5 +537,6 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
     //private JanelaNovoPerfil janelaNovoPerfil;
     private AcoesEmJanelas acoes;
     private boolean filtroAtivo = false;
+    private JanelaFiltro janelaFiltro = new JanelaFiltro();
     
 }

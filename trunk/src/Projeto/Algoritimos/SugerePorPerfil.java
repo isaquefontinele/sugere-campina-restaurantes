@@ -5,7 +5,6 @@
 
 package Projeto.Algoritimos;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -85,10 +84,12 @@ public class SugerePorPerfil extends Sugere {
 			}
 
 		}
-		String[] recomendacoesAuxiliar = recomendacoesInternas.toString()
+                if (!(recomendacoesInternas.isEmpty())){
+                    String[] recomendacoesAuxiliar = recomendacoesInternas.toString()
 				.replace("[", "").replace("]", "").split(",");
-
-		return recomendacoesAuxiliar;
+                    return recomendacoesAuxiliar;
+              }
+		return null;
 	}
 
 	private ArrayList<String> comparacaoDeNotasEAdiciona(Integer[] minhasNotas,
@@ -96,23 +97,21 @@ public class SugerePorPerfil extends Sugere {
 			String usuarioSemelhante) {
 
 		ArrayList<String> recomendacoesPorUsuario = new ArrayList<String>();
-
+		String estabelecimentoAtual;
 		for (int i = 0; i < minhasNotas.length; i++) {
-			// if ((minhasNotas[i] == 0 && notasUsuarioSemelhante[i] > 0)
-			// && (!(recomendacoes.toString().contains(super
-			// .listaEstabelecimentos().get(i))))) {
-			// recomendacoesPorUsuario.add(notasUsuarioSemelhante[i]
-			// + ":"
-			// + super.listaEstabelecimentos().get(i) + ":" +
-			// usuarioSemelhante);
-			// }
 			if (minhasNotas[i] == 0) {
 				if (notasUsuarioSemelhante[i] > 0) {
-					if (!(recomendacoes.toString().contains(super
-							.listaEstabelecimentos().get(i)))) {
-						recomendacoesPorUsuario.add(notasUsuarioSemelhante[i]
-								+ ":" + super.listaEstabelecimentos().get(i)
-								+ ":" + usuarioSemelhante);
+					estabelecimentoAtual = super.listaEstabelecimentos().get(i);
+					if (!(recomendacoes.toString().contains(estabelecimentoAtual))) {
+						if (super.getFiltroAtivo()) {
+							if ((super.contemEstabecimento(estabelecimentoAtual))) {
+								recomendacoesPorUsuario.add(notasUsuarioSemelhante[i]
+								+ ":" + super.listaEstabelecimentos().get(i));
+							}
+						} else {
+							recomendacoesPorUsuario.add(notasUsuarioSemelhante[i]
+							+ ":"+ super.listaEstabelecimentos().get(i));
+                                                }
 					}
 				}
 			}
@@ -138,22 +137,31 @@ public class SugerePorPerfil extends Sugere {
 	 * @throws Exception
 	 *             - Lança excessão de geraRecomendacoes()
 	 */
-	public String[] recomendacoes(Integer[] minhasNotas, int r)
-			throws Exception {
-		String[] recomendacoesInternas = geraRecomendacoes(minhasNotas, r);
-
+	public String[] recomendacoes(Integer[] minhasNotas,
+			int numeroDeRecomendacoes) throws Exception {
+		String[] recomendacoesInternas = geraRecomendacoes(minhasNotas,
+				numeroDeRecomendacoes);
+                
 		if (recomendacoesInternas != null) {
-			for (int i = 0; i < recomendacoesInternas.length; i++) {
+                    
+                    if (recomendacoesInternas.length > 0){
+                        
+                    for (int i = 0; i < recomendacoesInternas.length; i++) {
 				StringBuilder linha = new StringBuilder();
 				Formatter fm = new Formatter(linha);
 				fm.format("%3d° lugar -  %s ", (i + 1),
 						recomendacoesInternas[i].split(":")[1]);
-						
+
 				recomendacoesInternas[i] = linha.toString();
 
 			}
-		}
+                    }else{
+                        
+                        return null;
+                    }
+                }
 
+                
 		return recomendacoesInternas;
 	}
 

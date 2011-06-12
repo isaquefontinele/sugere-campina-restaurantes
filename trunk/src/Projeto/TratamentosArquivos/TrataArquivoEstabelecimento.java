@@ -11,13 +11,13 @@ import java.util.HashMap;
  *
  */
 public class TrataArquivoEstabelecimento extends TrataArquivos {
-    private ArrayList<String> colunaInicial;
+   private ArrayList<String> colunaInicial;
         /**
 	 * Construtor da classe TrataArquivos
 	 * @param String - Nome do arquivo a ser lido
 	 * @throws IOException - Arquivo não encontrado
 	 */
-	public TrataArquivoEstabelecimento(String nomeDoArquivo) throws IOException {
+   public TrataArquivoEstabelecimento(String nomeDoArquivo) throws IOException {
 		super(nomeDoArquivo);
                 colunaInicial = new ArrayList<String>();
 		

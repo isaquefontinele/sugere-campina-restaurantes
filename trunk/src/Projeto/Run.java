@@ -10,8 +10,6 @@ import java.io.IOException;
 import Projeto.Janelas.SugereCampinaAplication;
 import Projeto.acoes.CentralizaJanela;
 
-
-
 /**
  *
  * @author laerton

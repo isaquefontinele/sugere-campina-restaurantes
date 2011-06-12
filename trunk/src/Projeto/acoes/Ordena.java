@@ -21,7 +21,7 @@ public class Ordena {
 		 		throw new Exception("Tem que haver : separando os dois campos.");
 		 	}
 		 	
-		 	if (valores[0].split(":")[0].matches("^[a-zA-ZÃ�Ã‚ÃƒÃ€Ã‡Ã‰ÃŠÃ�Ã“Ã”Ã•ÃšÃœÃ¡Ã¢Ã£Ã Ã§Ã©ÃªÃ­Ã³Ã´ÃµÃºÃ¼]*$")){
+		 	if (valores[0].split(":")[0].matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")){
 		 		throw new Exception("O primeiro campo tem qua haver so caracteres numericos.");
 		 	}
 		 	

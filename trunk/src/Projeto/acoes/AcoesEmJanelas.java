@@ -15,6 +15,7 @@ import Projeto.TratamentosArquivos.Estabelecimentos;
 import Projeto.TratamentosArquivos.Usuarios;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -35,6 +36,8 @@ public class AcoesEmJanelas implements Runnable {
         private AcoesEmJanelas metodo ;
         private Thread thered ;
         private JanelaBarra janelaBarra ;
+        private String[] filtro;
+        private boolean filtroAtivo ;
 
 	/**
 	 * Classe que cuida de metodos especificos das janelas do programa
@@ -48,16 +51,42 @@ public class AcoesEmJanelas implements Runnable {
 		estabelecimentos = sugere.getEstabelecimentos();
 		try {
 			montaSugeres();
+                        destaivaFiltro();
 		} catch (IOException ex) {
 			Mensagem.exibirMensagem(ex.getMessage());
 		}
 	}
 
+        public AcoesEmJanelas(Sugere sugere, String[] filtro) {
+		this.sugere = sugere;
+		usuarios = sugere.getUsuarios();
+		estabelecimentos = sugere.getEstabelecimentos();
+                this.filtro = filtro;
+               try {
+			montaSugeres();
+                        ativaFiltro();
+		} catch (IOException ex) {
+			Mensagem.exibirMensagem(ex.getMessage());
+		}
+	}
 	private void montaSugeres() throws IOException {
 		populares = new SugerePopulares(usuarios, estabelecimentos);
 		porPerfil = new SugerePorPerfil(usuarios, estabelecimentos);
 	}
+        private void ativaFiltro() {
+                populares.setAtivaFiltros(filtro);
+                porPerfil.setAtivaFiltros(filtro);
+                filtroAtivo = true;
+        }
+        private void destaivaFiltro() {
+                populares.setDesativaFiltros();
+                porPerfil.setDesativaFiltros();
+                filtroAtivo = false;
+        }
 
+        protected boolean getFiltroAtivo (){
+            return filtroAtivo;
+        }
 	/**
 	 * 
 	 * @return Retorna um Array de String contedo a lista de estbelecimentos
@@ -85,6 +114,7 @@ public class AcoesEmJanelas implements Runnable {
 	 *             Não é permitido quantidades invalidas ou < 0
 	 */
 	public String[] getMaisPopulares(Integer quantidade) throws Exception {
+			
 		return populares.maisPopulares(quantidade);
 	}
 
@@ -119,7 +149,7 @@ public class AcoesEmJanelas implements Runnable {
 	public String[] getPorPerfil(String usuario, Integer quantidade)
 			throws Exception {
 		Integer[] notas = notasUsuario(usuario);
-
+                
 		return porPerfil.recomendacoes(notas, quantidade);
 	}
 
@@ -345,14 +375,16 @@ public class AcoesEmJanelas implements Runnable {
 				}
                         }
                 }
-		
+		DecimalFormat decimal = new DecimalFormat("#,##0.00");
 		janelaBarra.dispose();
+                String perPopular = String.valueOf( decimal.format((contadorPopular * 100) / contador));
+                String perPerfil = String.valueOf(decimal.format(((contadorPerfil * 100) / contador)));
 		return "Apos a analise conclui-se que para uma pesquisa de "
 				+ quantidade
 				+ ((quantidade == 1) ? " opininão " : " opininões ")
 				+ "o resultado foi:" + "\nPor popularidade: "
-				+ ((contadorPopular * 100) / contador) + "% de acertos.\n"
-				+ "Por perfil: " + ((contadorPerfil * 100) / contador)
+				+ perPopular + "% de acertos.\n"
+				+ "Por perfil: " + perPerfil
 				+ "% de acertos";
 	}
 

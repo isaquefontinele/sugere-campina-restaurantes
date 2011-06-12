@@ -14,15 +14,15 @@ public class Ordena {
 	 */
 	 public static void bubbleSort(String[] valores) throws Exception {
 		 	if (valores.length == 0){
-		 		throw new Exception("Nao eh permitido um array vazio.");
+		 		throw new Exception("Não é permitido um array vazio.");
 		 	}
 		 	
 		 	if (!(valores[0].contains(":"))){
-		 		throw new Exception("Tem que haver : separando os dois campos.");
+		 		throw new Exception("Tem que haver ':' (dois pontos), separando os dois campos.");
 		 	}
 		 	
-		 	if (valores[0].split(":")[0].matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")){
-		 		throw new Exception("O primeiro campo tem qua haver so caracteres numericos.");
+		 	if (valores[0].split(":")[0].matches("^[a-zA-ZÃ�Ã‚ÃƒÃ€Ã‡Ã‰ÃŠÃ�Ã“Ã”Ã•ÃšÃœÃ¡Ã¢Ã£Ã Ã§Ã©ÃªÃ­Ã³Ã´ÃµÃºÃ¼]*$")){
+		 		throw new Exception("No primeiro campo só podem haver caracteres numéricos.");
 		 	}
 		 	
 	        for (int i = valores.length; i >= 1; i--) {
@@ -43,15 +43,15 @@ public class Ordena {
 	  */
 	 public static void bubbleSort(ArrayList<String> valores) throws Exception {
 		 	if (valores.size() == 0){
-		 		throw new Exception("Nao eh permitido um array vazio.");
+		 		throw new Exception("Não é permitido um array vazio.");
 		 	}
 		 	
 		 	if (!(valores.get(0).contains(":"))){
-		 		throw new Exception("Tem que haver : separando os dois campos.");
+		 		throw new Exception("Tem que haver ':' (dois pontos), separando os dois campos.");
 		 	}
 		 	
 		 	if (valores.get(0).split(":")[0].matches("^[a-zA-ZÃ�Ã‚ÃƒÃ€Ã‡Ã‰ÃŠÃ�Ã“Ã”Ã•ÃšÃœÃ¡Ã¢Ã£Ã Ã§Ã©ÃªÃ­Ã³Ã´ÃµÃºÃ¼]*$")){
-		 		throw new Exception("O primeiro campo tem qua haver so caracteres numericos.");
+		 		throw new Exception("No primeiro campo só podem haver caracteres numéricos.");
 		 	}
 		 	
 	        for (int i = valores.size(); i >= 1; i--) {
@@ -72,15 +72,15 @@ public class Ordena {
 	  */
          public static void bubbleSortDec(String[] valores) throws Exception {
 		 	if (valores.length == 0){
-		 		throw new Exception("Nao eh permitido um array vazio.");
+		 		throw new Exception("Não é permitido um array vazio.");
 		 	}
 		 	
 		 	if (!(valores[0].contains(":"))){
-		 		throw new Exception("Tem que haver : separando os dois campos.");
+		 		throw new Exception("Tem que haver ':' (dois pontos), separando os dois campos.");
 		 	}
 		 	
-		 	if (valores[0].split(":")[0].matches("^[a-zA-ZÃ�Ã‚ÃƒÃ€Ã‡Ã‰ÃŠÃ�Ã“Ã”Ã•ÃšÃœÃ¡Ã¢Ã£Ã Ã§Ã©ÃªÃ­Ã³Ã´ÃµÃºÃ¼]*$")){
-		 		throw new Exception("O primeiro campo tem qua haver so caracteres numericos.");
+		 	if (valores[0].split(":")[0].matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")){
+		 		throw new Exception("No primeiro campo só podem haver caracteres numéricos.");
 		 	}
 		 	
 	        for (int i = valores.length; i >= 1; i--) {
@@ -102,15 +102,15 @@ public class Ordena {
 	  */
 	 public static void bubbleSortDec(ArrayList<String> valores) throws Exception {
 		 	if (valores.size() == 0){
-		 		throw new Exception("Nao eh permitido um array vazio.");
+		 		throw new Exception("Não é permitido um array vazio.");
 		 	}
 		 	
 		 	if (!(valores.get(0).contains(":"))){
-		 		throw new Exception("Tem que haver : separando os dois campos.");
+		 		throw new Exception("Tem que haver ':' (dois pontos), separando os dois campos.");
 		 	}
 		 	
-		 	if (valores.get(0).split(":")[0].matches("^[a-zA-ZÃ�Ã‚ÃƒÃ€Ã‡Ã‰ÃŠÃ�Ã“Ã”Ã•ÃšÃœÃ¡Ã¢Ã£Ã Ã§Ã©ÃªÃ­Ã³Ã´ÃµÃºÃ¼]*$")){
-		 		throw new Exception("O primeiro campo tem qua haver so caracteres numericos.");
+		 	if (valores.get(0).split(":")[0].matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")){
+		 		throw new Exception("No primeiro campo só podem haver caracteres numéricos.");
 		 	}
 		 	
 	        for (int i = valores.size(); i >= 1; i--) {

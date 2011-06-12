@@ -11,9 +11,7 @@
 
 package Projeto.Janelas;
 
-//import com.sun.xml.internal.ws.api.message.Message;
 
-//import Projeto.FiltroExtensionFileFilter;
 
 import java.io.IOException;
 
@@ -30,7 +28,7 @@ import Projeto.acoes.Mensagem;
  *
  * @author laerton, Isaque, ....
  */
-public class JanelaArquivo extends javax.swing.JFrame {
+ public class JanelaArquivo extends javax.swing.JFrame {
 
     /**
     * @param args the command line arguments
@@ -46,25 +44,7 @@ public class JanelaArquivo extends javax.swing.JFrame {
          
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtArquivo1;
-    private javax.swing.JButton jBtArquivo2;
-    private javax.swing.JButton jBtConectar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTxtOpinioes;
-    private javax.swing.JTextField jtxtEstabelecimentos;
-    // End of variables declaration//GEN-END:variables
-    private String urlEstabeleciemnto;
-    private String urlOpinioes;
-    private JFileChooser janelaDeArquivos1;
-    private final static FiltroArquivo filter = new FiltroArquivo();
-    private Usuarios usuario;
-    private Estabelecimentos estabelecimentos;
-    private TrataArquivoOpinioes pesquisa;
-    private TrataArquivoEstabelecimento restaurante;
-    private static SugereCampinaAplication janelaPrincipal;
+    
     /** Creates new form JanelaArquivo */
     @SuppressWarnings("static-access")
     public JanelaArquivo(SugereCampinaAplication janelaPrincipal) {
@@ -79,7 +59,7 @@ public class JanelaArquivo extends javax.swing.JFrame {
         return jTxtOpinioes.getText();
     }
     //Cria um obj do tipo JFileChooser para uma janela de  dialogo de abertura de arquivo
-    //Retorna o emdereço completo do arquivo
+    //Retorna o emdereÃ§o completo do arquivo
     private String abrirJanela(){
         janelaDeArquivos1 = new JFileChooser();
         janelaDeArquivos1.setFileFilter(filter);
@@ -248,4 +228,24 @@ public class JanelaArquivo extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jBtConectarActionPerformed
+ // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtArquivo1;
+    private javax.swing.JButton jBtArquivo2;
+    private javax.swing.JButton jBtConectar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField jTxtOpinioes;
+    private javax.swing.JTextField jtxtEstabelecimentos;
+    // End of variables declaration//GEN-END:variables
+    private String urlEstabeleciemnto;
+    private String urlOpinioes;
+    private JFileChooser janelaDeArquivos1;
+    private final static FiltroArquivo filter = new FiltroArquivo();
+    private Usuarios usuario;
+    private Estabelecimentos estabelecimentos;
+    private TrataArquivoOpinioes pesquisa;
+    private TrataArquivoEstabelecimento restaurante;
+    private static SugereCampinaAplication janelaPrincipal;
+    
 }

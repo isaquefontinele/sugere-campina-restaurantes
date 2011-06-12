@@ -14,6 +14,7 @@
                 <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Projeto/Icones/abrir.png"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="Dados padr&#xf5;es"/>
                 <Property name="toolTipText" type="java.lang.String" value="Abrir sistema com dados padr&#xf5;es"/>
                 <Property name="name" type="java.lang.String" value="jMpadr&#xe3;o" noResource="true"/>
               </Properties>
@@ -26,11 +27,6 @@
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="Projeto.SugereCampinaAplication" id="abrirJanelaArquivo" methodName="abrirJanelaArquivo"/>
                 </Property>
-                <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Projeto/Icones/abrir.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Arquivos dados"/>
-                <Property name="toolTipText" type="java.lang.String" value="Abre arquivos de dados indicado pelo cliente"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="openMenuItemActionPerformed"/>
@@ -282,19 +278,19 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBTPorPerfilActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JToggleButton" name="jToggleButton1">
+        <Component class="javax.swing.JToggleButton" name="jTBFiltro">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Projeto/Icones/32/filtro+.png"/>
+              <Image iconType="3" name="/Projeto/Icones/32/filtroX.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Ativa ou desativa os filtros nos sistemas de sugest&#xf5;es."/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
-            <Property name="name" type="java.lang.String" value="jToggleButton1" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="jTBFiltro" noResource="true"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTBFiltroActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JToolBar$Separator" name="jSeparator2">

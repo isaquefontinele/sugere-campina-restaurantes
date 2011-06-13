@@ -2,6 +2,7 @@ package Projeto;
 
 
 
+import Projeto.enuns.TiposDeFiltros;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +14,7 @@ import Projeto.TratamentosArquivos.Estabelecimentos;
 import Projeto.TratamentosArquivos.TrataArquivoEstabelecimento;
 import Projeto.TratamentosArquivos.TrataArquivoOpinioes;
 import Projeto.TratamentosArquivos.Usuarios;
+import Projeto.acoes.Ordena;
 import java.util.Iterator;
 
 
@@ -43,23 +45,26 @@ public class teste {
 		teste1 = new TrataArquivoOpinioes("opinioes-dos-usuarios-v2.data");
 		teste2 = new TrataArquivoEstabelecimento(
 				"lista_estabelecimentos_projeto_lp2-v2.data");
-		Estabelecimentos esta = new Estabelecimentos(teste2);
-		String[] teste321 = {"Palavra-chave:Bar"};
-		filtro = new FiltrosDeDados(teste321, esta);
-                ArrayList<String> lista1 =filtro.aplicaFiltros();
-                Iterator<String> it = (Iterator<String>) lista1.iterator();
-                String palavra;
-                String palavra2 = "Bonaparte";
-                while (it.hasNext()){
-                	palavra = it.next();
-                    System.out.println(palavra + " " + palavra2 + " " + palavra.equals(palavra2) + " " + palavra2.equals(palavra) + " " + palavra.contains(palavra2) );
-                }
-                lista1.toString().contains("Bonaparte");
-		System.out.println(lista1.toString().contains("Bonaparte"));
-		System.out.println(filtro.aplicaFiltros());
-		String[] novo = {};
-		System.out.println(novo[0]);
-                        
+//		Estabelecimentos esta = new Estabelecimentos(teste2);
+//		String[] teste321 = {"Palavra-chave:Bar"};
+//		filtro = new FiltrosDeDados(teste321, esta);
+//                ArrayList<String> lista1 =filtro.aplicaFiltros();
+//                Iterator<String> it = (Iterator<String>) lista1.iterator();
+//                String palavra;
+//                String palavra2 = "Bonaparte";
+//                while (it.hasNext()){
+//                	palavra = it.next();
+//                    System.out.println(palavra + " " + palavra2 + " " + palavra.equals(palavra2) + " " + palavra2.equals(palavra) + " " + palavra.contains(palavra2) );
+//                }
+                String[] lugares = {" 1º lugar - Caseira", "10º lugar - Rural", "11º lugar - Lanche"};
+
+//                lista1.toString().contains("Bonaparte");
+////		System.out.println(lista1.toString().contains("Bonaparte"));
+//		System.out.println(filtro.aplicaFiltros());
+//		String[] novo = {};
+//		System.out.println(novo[0]);
+
+		System.out.println(Arrays.toString(Ordena.ordenaSugestoesAlfabeticamente(lugares)));
                         
 		
 	}

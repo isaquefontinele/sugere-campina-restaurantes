@@ -86,6 +86,11 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sugere Campina");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowDeactivated(java.awt.event.WindowEvent evt) {
+                formWindowDeactivated(evt);
+            }
+        });
 
         jPaienelDados.setName("jPaienelDados"); // NOI18N
 
@@ -388,6 +393,10 @@ public class SugereCampinaAplication extends javax.swing.JFrame {
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
         janela1.setVisible(true);
     }//GEN-LAST:event_openMenuItemActionPerformed
+
+    private void formWindowDeactivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeactivated
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowDeactivated
     
     public void montaTabela (String usuario ) throws Exception{
 

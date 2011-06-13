@@ -84,11 +84,11 @@ public class SugerePorPerfil extends Sugere {
 			}
 
 		}
-                if (!(recomendacoesInternas.isEmpty())){
-                    String[] recomendacoesAuxiliar = recomendacoesInternas.toString()
-				.replace("[", "").replace("]", "").split(",");
-                    return recomendacoesAuxiliar;
-              }
+		if (!(recomendacoesInternas.isEmpty())) {
+			String[] recomendacoesAuxiliar = recomendacoesInternas.toString()
+					.replace("[", "").replace("]", "").split(",");
+			return recomendacoesAuxiliar;
+		}
 		return null;
 	}
 
@@ -102,16 +102,25 @@ public class SugerePorPerfil extends Sugere {
 			if (minhasNotas[i] == 0) {
 				if (notasUsuarioSemelhante[i] > 0) {
 					estabelecimentoAtual = super.listaEstabelecimentos().get(i);
-					if (!(recomendacoes.toString().contains(estabelecimentoAtual))) {
+					if (!(recomendacoes.toString()
+							.contains(estabelecimentoAtual))) {
 						if (super.getFiltroAtivo()) {
-							if ((super.contemEstabecimento(estabelecimentoAtual))) {
-								recomendacoesPorUsuario.add(notasUsuarioSemelhante[i]
-								+ ":" + super.listaEstabelecimentos().get(i));
+							if ((super
+									.contemEstabecimento(estabelecimentoAtual))) {
+								recomendacoesPorUsuario
+										.add(notasUsuarioSemelhante[i]
+												+ ":"
+												+ super.listaEstabelecimentos()
+														.get(i));
+								
 							}
 						} else {
-							recomendacoesPorUsuario.add(notasUsuarioSemelhante[i]
-							+ ":"+ super.listaEstabelecimentos().get(i));
-                                                }
+							recomendacoesPorUsuario
+									.add(notasUsuarioSemelhante[i]
+											+ ":"
+											+ super.listaEstabelecimentos()
+													.get(i));
+						}
 					}
 				}
 			}
@@ -141,27 +150,26 @@ public class SugerePorPerfil extends Sugere {
 			int numeroDeRecomendacoes) throws Exception {
 		String[] recomendacoesInternas = geraRecomendacoes(minhasNotas,
 				numeroDeRecomendacoes);
-                
+
 		if (recomendacoesInternas != null) {
-                    
-                    if (recomendacoesInternas.length > 0){
-                        
-                    for (int i = 0; i < recomendacoesInternas.length; i++) {
-				StringBuilder linha = new StringBuilder();
-				Formatter fm = new Formatter(linha);
-				fm.format("%3d° lugar -  %s ", (i + 1),
-						recomendacoesInternas[i].split(":")[1]);
 
-				recomendacoesInternas[i] = linha.toString();
+			if (recomendacoesInternas.length > 0) {
 
+				for (int i = 0; i < recomendacoesInternas.length; i++) {
+					StringBuilder linha = new StringBuilder();
+					Formatter fm = new Formatter(linha);
+					fm.format("%3d° lugar -  %s", (i + 1),
+							recomendacoesInternas[i].split(":")[1]);
+
+					recomendacoesInternas[i] = linha.toString();
+
+				}
+			} else {
+
+				return null;
 			}
-                    }else{
-                        
-                        return null;
-                    }
-                }
+		}
 
-                
 		return recomendacoesInternas;
 	}
 

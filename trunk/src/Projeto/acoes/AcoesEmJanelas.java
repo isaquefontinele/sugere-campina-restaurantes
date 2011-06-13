@@ -408,4 +408,8 @@ public class AcoesEmJanelas implements Runnable {
 		thered.start();
 	}
         
+        protected Estabelecimentos getEstabelecimentos(){
+            return estabelecimentos;
+        }
+        
 }

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  * Classe filha de TrataArquivos que manipula e guarda em objetos os dados dos restaurantes
@@ -28,14 +29,14 @@ public class TrataArquivoEstabelecimento extends TrataArquivos {
          * @throws IOException para a abertura e fechamento do arquivo 
          */
 	@Override
-	public HashMap<String,String[]> recolheDados() throws IOException {
+	public LinkedHashMap<String, String[]> recolheDados() throws IOException {
 		BufferedReader leitor;
 		String linha;
-		HashMap<String,String[]> mapa = null;
+		LinkedHashMap<String,String[]> mapa = null;
 			
 			super.lerArquivo();
 			leitor = new BufferedReader(super.arquivoLido);
-			mapa = new HashMap <String , String[]>();
+			mapa = new LinkedHashMap <String , String[]>();
 			super.linhaCabecalho = leitor.readLine().split(";");
 			while ((linha = leitor.readLine()) != null){
 				String[] dadosLinha = linha.split(";");

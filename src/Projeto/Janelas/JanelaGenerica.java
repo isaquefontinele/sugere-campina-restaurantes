@@ -11,11 +11,19 @@
 
 package Projeto.Janelas;
 
+import Projeto.TratamentosArquivos.Estabelecimentos;
+import Projeto.acoes.Ordena;
+
+
 /**
  *
  * @author Laerton, Isaque, ...
  */
 public class JanelaGenerica extends javax.swing.JFrame {
+    private String[] lista;
+    private boolean disfaz = false;
+    private String[] listaDisfaz;
+    private Estabelecimentos estabelecimentos;
 
     /** Creates new form JanelaGenerica */
     public JanelaGenerica() {
@@ -35,6 +43,10 @@ public class JanelaGenerica extends javax.swing.JFrame {
         jListaRanking = new javax.swing.JList();
         jBtOk = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jBOrdena1 = new javax.swing.JButton();
+        jBOrdena = new javax.swing.JButton();
+        jBOrdenaPosicao = new javax.swing.JButton();
+        jLOrdena = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Ranking");
@@ -60,8 +72,38 @@ public class JanelaGenerica extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Lista de estabelecimentos com popularidade");
+        jLabel1.setText("Lista de estabelecimentos");
         jLabel1.setName("jLabel1"); // NOI18N
+
+        jBOrdena1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/sort.png"))); // NOI18N
+        jBOrdena1.setToolTipText("Ordena alfabeticamente");
+        jBOrdena1.setName("jBOrdena1"); // NOI18N
+        jBOrdena1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBOrdena1acaoBtOK(evt);
+            }
+        });
+
+        jBOrdena.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/sort.png"))); // NOI18N
+        jBOrdena.setToolTipText("Ordena por tipo de prato");
+        jBOrdena.setName("jBOrdena"); // NOI18N
+        jBOrdena.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBOrdenaacaoBtOK(evt);
+            }
+        });
+
+        jBOrdenaPosicao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Projeto/Icones/sort.png"))); // NOI18N
+        jBOrdenaPosicao.setToolTipText("Ordena por posição de pontuação");
+        jBOrdenaPosicao.setName("jBOrdenaPosicao"); // NOI18N
+        jBOrdenaPosicao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBOrdenaPosicaoacaoBtOK(evt);
+            }
+        });
+
+        jLOrdena.setText("Ordenado: Posição");
+        jLOrdena.setName("jLOrdena"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -71,7 +113,16 @@ public class JanelaGenerica extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
-                    .addComponent(jBtOk, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jBOrdena1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBOrdena)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBOrdenaPosicao)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLOrdena)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                        .addComponent(jBtOk))
                     .addComponent(jLabel1))
                 .addContainerGap())
         );
@@ -83,7 +134,13 @@ public class JanelaGenerica extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtOk)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jBtOk)
+                        .addComponent(jBOrdena1)
+                        .addComponent(jLOrdena))
+                    .addComponent(jBOrdena)
+                    .addComponent(jBOrdenaPosicao))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -94,18 +151,43 @@ public class JanelaGenerica extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_acaoBtOK
 
+    private void jBOrdena1acaoBtOK(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBOrdena1acaoBtOK
+       
+       lista = Ordena.ordenaSugestoesAlfabeticamente(listaDisfaz);
+       povoaListaRanking(lista);
+       jLOrdena.setText("Ordenado: Alfabeticamente");
+    }//GEN-LAST:event_jBOrdena1acaoBtOK
+
+    private void jBOrdenaacaoBtOK(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBOrdenaacaoBtOK
+        lista = Ordena.ordenaTipoDePrato(listaDisfaz, estabelecimentos);
+        jLOrdena.setText("Ordenado: Tipo de prato");
+        povoaListaRanking(lista);
+    }//GEN-LAST:event_jBOrdenaacaoBtOK
+
+    private void jBOrdenaPosicaoacaoBtOK(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBOrdenaPosicaoacaoBtOK
+       povoaListaRanking(listaDisfaz);
+       jLOrdena.setText("Ordenado: Posição");
+    }//GEN-LAST:event_jBOrdenaPosicaoacaoBtOK
+
     /**
     * @param args the command line arguments
     */
     public void povoaListaRanking (final String[] ranking ){
-    	jListaRanking.setModel(new javax.swing.AbstractListModel() {
+    	lista = ranking;
+        if (disfaz == false){
+            disfaz = true;
+            listaDisfaz = ranking;
+        }
+        jListaRanking.setModel(new javax.swing.AbstractListModel() {
             String[] strings = ranking;
             @Override
             public int getSize() { return strings.length; }
             @Override
             public Object getElementAt(int i) { return strings[i]; }});
     }
-    
+    public void setEstabelecimentos (Estabelecimentos estabelecimentos) {
+            this.estabelecimentos = estabelecimentos;
+    }
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
@@ -116,7 +198,11 @@ public class JanelaGenerica extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBOrdena;
+    private javax.swing.JButton jBOrdena1;
+    private javax.swing.JButton jBOrdenaPosicao;
     private javax.swing.JButton jBtOk;
+    private javax.swing.JLabel jLOrdena;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList jListaRanking;
     private javax.swing.JScrollPane jScrollPane1;

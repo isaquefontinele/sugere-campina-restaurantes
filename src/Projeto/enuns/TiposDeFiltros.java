@@ -1,4 +1,4 @@
-package Projeto;
+package Projeto.enuns;
 
 /*
  * To change this template, choose Tools | Templates

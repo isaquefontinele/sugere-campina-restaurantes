@@ -30,7 +30,17 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jScrollPane1" alignment="0" pref="498" max="32767" attributes="0"/>
-                  <Component id="jBtOk" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jBOrdena1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jBOrdena" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jBOrdenaPosicao" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLOrdena" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="145" max="32767" attributes="0"/>
+                      <Component id="jBtOk" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -45,7 +55,15 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="223" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jBtOk" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jBtOk" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBOrdena1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLOrdena" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jBOrdena" min="-2" max="-2" attributes="0"/>
+                  <Component id="jBOrdenaPosicao" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace pref="20" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -93,8 +111,50 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Lista de estabelecimentos com popularidade"/>
+        <Property name="text" type="java.lang.String" value="Lista de estabelecimentos"/>
         <Property name="name" type="java.lang.String" value="jLabel1" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jBOrdena1">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Projeto/Icones/sort.png"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Ordena alfabeticamente"/>
+        <Property name="name" type="java.lang.String" value="jBOrdena1" noResource="true"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBOrdena1acaoBtOK"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jBOrdena">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Projeto/Icones/sort.png"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Ordena por tipo de prato"/>
+        <Property name="name" type="java.lang.String" value="jBOrdena" noResource="true"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBOrdenaacaoBtOK"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jBOrdenaPosicao">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Projeto/Icones/sort.png"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Ordena por posi&#xe7;&#xe3;o de pontua&#xe7;&#xe3;o"/>
+        <Property name="name" type="java.lang.String" value="jBOrdenaPosicao" noResource="true"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBOrdenaPosicaoacaoBtOK"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLOrdena">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ordenado: Posi&#xe7;&#xe3;o"/>
+        <Property name="name" type="java.lang.String" value="jLOrdena" noResource="true"/>
       </Properties>
     </Component>
   </SubComponents>

@@ -1,6 +1,12 @@
 package Projeto.acoes;
 
+import Projeto.TratamentosArquivos.Estabelecimentos;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import javax.swing.text.html.HTMLDocument.Iterator;
 /**
  * Classe responsável pela ordenação dos dados através do algoritmo Bubble Sort
  * @author Laerton
@@ -125,6 +131,77 @@ public class Ordena {
 	   
 	
 	 }
-	 
-	 
+
+        
+	private static String[] ordenaPorOrdemAlfabetica(String[] strings) {
+
+		String stringsOrdenadas[] = new String[strings.length];
+
+		Arrays.sort(strings);
+
+		stringsOrdenadas = strings.clone();
+		return stringsOrdenadas;
+	}
+
+	
+	private static String[] retiraSubstring(String[] strings, String separador) {
+
+		String stringsFormatadas[] = new String[strings.length];
+
+		for (int i = 0; i < strings.length; i++) {
+			String string = strings[i];
+
+			int indiceDoSeparador = string.indexOf(separador);
+
+			String novaString = string.substring(indiceDoSeparador + 1, string.length());
+			novaString = novaString.trim();
+
+			stringsFormatadas[i] = novaString;
+
+		}
+
+		return stringsFormatadas;
+	}
+
+	/**
+	 * Ordena as sugestoes de restaurante afabeticamente.
+	 * Retira a ordenaçao de colocaçao para ordenar pela ordem alfabetica.
+	 *
+	 * @param strings Um array de strings contendo as informacoes dos restaurantes.
+	 * @return A array com o nome dos restaurantes ordenados pela ordem alfabetica.
+	 */
+
+	public static String[] ordenaSugestoesAlfabeticamente(String[] strings) {
+		String separador = "-";
+                return ordenaPorOrdemAlfabetica(retiraSubstring(strings, separador));
+	}
+
+	public static String[] ordenaTipoDePrato(String[] lista, Estabelecimentos estabelecimentos){
+            String[] novaLista = new String[(lista.length + estabelecimentos.getTiposDeRestaurantes().size())];
+            HashSet<String> tiposDePratos = estabelecimentos.getTiposDeRestaurantes();
+            java.util.Iterator<String> it = (java.util.Iterator<String>)tiposDePratos.iterator();
+            String estabelecimentoAtual;
+            
+            int contador = 0;
+            while (it.hasNext()){
+                novaLista[contador] = it.next();
+                contador +=1;
+            }
+            
+            for (int i = (tiposDePratos.size()); i < novaLista.length; i++) {
+                
+            	estabelecimentoAtual = lista[i - (tiposDePratos.size())].split("-")[1].replaceFirst("  ", "");
+            	System.out.println(estabelecimentoAtual);
+                novaLista[i] = estabelecimentos.getTipoEstabelecimento(estabelecimentoAtual) + ":" + estabelecimentoAtual;
+            }
+            Arrays.sort(novaLista);
+            for (int i = 0; i < novaLista.length; i++) {
+				if (novaLista[i].contains(":")){
+					novaLista[i]= " * " + novaLista[i].split(":")[1];
+				}else{
+					novaLista[i]= "Tipo de prato: " + novaLista[i];
+				}
+			}
+            return novaLista;
+        }
 }

@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+
 import javax.swing.text.html.HTMLDocument.Iterator;
 
 /**
@@ -19,7 +21,7 @@ import javax.swing.text.html.HTMLDocument.Iterator;
  * @author laerton
  */
 public class Estabelecimentos {
-    private HashMap<String,String[]> estabelecimentos;
+    private LinkedHashMap<String,String[]> estabelecimentos;
     private TrataArquivoEstabelecimento arq;
     private HashSet<String> tiposPratos;
     /**
@@ -34,17 +36,25 @@ public class Estabelecimentos {
         } catch (IOException ex) {
             Mensagem.exibirMensagem(ex.getMessage());
         }
-        //geraSetRefeicoes();
+        geraSetRefeicoes();
         
     }
-//    private void geraSetRefeicoes(){
-//        java.util.Iterator<String> it = (java.util.Iterator<String>) estabelecimentos.keySet().iterator();
-//        while(it.hasNext()){
-//        	String informacao =  estabelecimentos.get(it.next())[2];
-//        	tiposPratos.add(informacao);
-//        }
-//
-//    }
+    private void geraSetRefeicoes(){
+        java.util.Iterator<String> it = (java.util.Iterator<String>) estabelecimentos.keySet().iterator();
+        while(it.hasNext()){
+        	String informacao =  estabelecimentos.get(it.next())[2];
+        	tiposPratos.add(informacao);
+        }
+
+    }
+    /**
+     * Metodo retorna os tipos de partos existente nos estabelecimentos cadastrados.
+     * @return HashSet de String contendo os tipos de pratos.
+     */
+    public HashSet<String> getTiposDeRestaurantes(){
+        
+        return tiposPratos;
+    }
     
 //    /**
 //     * Metdodo que baseado nos estabeleciemntos recebido do arquivo de entrada retorna quais tipos de refeicões estão disponíveis.
@@ -68,7 +78,13 @@ public class Estabelecimentos {
 	 * @return ArrayList - Nomes dos estabelecimentos
 	 */
     public ArrayList<String> getEstabelecimentos (){
-        return arq.getcolunaInicial();
+        ArrayList<String> listaRetorno = new ArrayList<String>();
+        java.util.Iterator<String> it = (java.util.Iterator<String>)estabelecimentos.keySet().iterator();
+        while (it.hasNext()){
+        	listaRetorno.add(it.next());
+        }
+    	//return arq.getcolunaInicial();
+    	return  listaRetorno;
     }
     /**
      * 
@@ -76,7 +92,7 @@ public class Estabelecimentos {
      * @return String contendo o tipo de estbelecimento
      */
     public String getTipoEstabelecimento(String estabelecimento){
-        
+        System.out.println(estabelecimentos.keySet());
         return this.estabelecimentos.get(estabelecimento)[2];
     }
     /**

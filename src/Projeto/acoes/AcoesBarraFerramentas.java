@@ -2,7 +2,7 @@ package Projeto.acoes;
 
 import Projeto.Algoritimos.Sugere;
 import Projeto.Janelas.JanelaGenerica;
-import java.util.Arrays;
+
 
 /**
  * 
@@ -61,15 +61,16 @@ public class AcoesBarraFerramentas extends AcoesEmJanelas {
 			try {
 
                         String[] retorno = super.getMaisPopulares(Integer.valueOf(resposta));
-                        
+                            
                         if (!(retorno[0].equals("") )){
+                            
                                 inicializaJanelaGenerica("Indicações dos mais populares.",retorno);
                         } else {
                             Mensagem.exibirMensagem("Infelizmente não foi possível gerar recomendações.");
                         }
 
 			} catch (Exception ex) {
-				Mensagem.exibirMensagem(ex.getMessage());
+				Mensagem.exibirMensagem((ex.getMessage() == null)?"Infelizmente não foi possível gerar recomendações,\npois não há estabeleciemntos que atendam os requisitos":ex.getMessage());
 			}
 
 		}
@@ -186,6 +187,8 @@ public class AcoesBarraFerramentas extends AcoesEmJanelas {
 		CentralizaJanela.centralizaJanela(janelaGenerica);
 		janelaGenerica.povoaListaRanking(conteudo);
 		janelaGenerica.setVisible(true);
+                janelaGenerica.setEstabelecimentos(super.getEstabelecimentos());
+                
 	}
 
 	/**

@@ -11,8 +11,8 @@
 
 package Projeto.Janelas;
 
-import Projeto.TipoDePrato;
-import Projeto.TiposDeFiltros;
+import Projeto.enuns.TipoDePrato;
+import Projeto.enuns.TiposDeFiltros;
 import Projeto.acoes.Mensagem;
 
 import java.util.Arrays;
@@ -311,9 +311,10 @@ public class JanelaFiltro extends javax.swing.JFrame {
 		}
 		if (informativo != null) {
 			if (!(informativo.equals(""))) {
-				if (!(listaFiltros.contains(informativo))) {
-					listaFiltros.add(tipo.getRotulo() + ":" + informativo);
-					atualizaLista();
+				if (!(listaFiltros.toString().contains(TiposDeFiltros.TIPO_DE_REFEIÇÃO.getRotulo()))) {
+                                            
+                                            listaFiltros.add(tipo.getRotulo() + ":" + informativo);
+                                            atualizaLista();
 				} else {
 					Mensagem.exibirMensagem("Não pode ser adicionado mais de um filtro do tipo de prato");
 				}

@@ -30,8 +30,8 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jLInforma" alignment="0" pref="328" max="32767" attributes="0"/>
-                  <Component id="jScrollPane1" alignment="0" pref="328" max="32767" attributes="0"/>
+                  <Component id="jLInforma" alignment="0" pref="333" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="0" pref="333" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLComboTipo" min="-2" max="-2" attributes="0"/>
@@ -40,9 +40,9 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="JTxtTermo" pref="163" max="32767" attributes="1"/>
-                          <Component id="jCTipoRestaurante" alignment="0" pref="163" max="32767" attributes="1"/>
-                          <Component id="jCFiltros" alignment="1" pref="163" max="32767" attributes="1"/>
+                          <Component id="JTxtTermo" pref="230" max="32767" attributes="1"/>
+                          <Component id="jCTipoRestaurante" alignment="0" pref="230" max="32767" attributes="1"/>
+                          <Component id="jCFiltros" alignment="1" pref="230" max="32767" attributes="1"/>
                       </Group>
                   </Group>
                   <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -52,7 +52,7 @@
                       <Component id="jBRemove" min="-2" pref="37" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jBRemoveAll" min="-2" pref="37" max="-2" attributes="0"/>
-                      <EmptySpace pref="123" max="32767" attributes="0"/>
+                      <EmptySpace pref="128" max="32767" attributes="0"/>
                       <Component id="jBCancelar" min="-2" pref="36" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jBOk" min="-2" pref="41" max="-2" attributes="0"/>
@@ -85,7 +85,7 @@
               <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="75" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLInforma" pref="9" max="32767" attributes="1"/>
+              <Component id="jLInforma" pref="14" max="32767" attributes="1"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">

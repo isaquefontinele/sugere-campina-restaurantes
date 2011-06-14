@@ -92,7 +92,7 @@ public class Estabelecimentos {
      * @return String contendo o tipo de estbelecimento
      */
     public String getTipoEstabelecimento(String estabelecimento){
-        System.out.println(estabelecimentos.keySet());
+        
         return this.estabelecimentos.get(estabelecimento)[2];
     }
     /**
